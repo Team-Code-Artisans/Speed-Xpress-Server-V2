@@ -6,7 +6,7 @@ Effortlessly manage parcels with Speed Xpress. Send, receive, and track with eas
 
 ## Live Preview
 
-speed-xpress-server.vercel.app
+#### [Speed Xpress](https://speed-xpress-server.vercel.app/)
 
 ## Tech Stack
 
