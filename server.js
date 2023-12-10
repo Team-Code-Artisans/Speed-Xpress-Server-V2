@@ -14,6 +14,7 @@ app.use(cors());
 connectDB();
 
 // use routes
+app.use("/users", require("./route/userRoute"));
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: `Server listening on port ${port}` });
