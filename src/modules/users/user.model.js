@@ -1,15 +1,23 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "Please provide a name."],
+    minLenght: [3, "Name must be at least 3 characters."],
+    maxLenght: [20, "Name is too long."],
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
+    required: [true, "Please provide a email address."],
+    trim: true, // without spaces
+    unique: [true, "Please provide a unique email address."],
+    validate: {
+      validator: () => {
+        Promise.resolve(false);
+      },
+      message: "Email validation failed",
+    },
   },
   number: {
     type: String,
@@ -25,5 +33,6 @@ const userSchema = new Schema({
   },
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports = User;
+const UserModel = mongoose.model("users", userSchema);
+
+module.exports = UserModel;

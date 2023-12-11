@@ -3,7 +3,10 @@ const morgan = require("morgan");
 const cors = require("cors");
 const app = express();
 const router = require("./src/routes");
-const { errorHandler, errorRouter } = require("./src/utilities/errorHandler");
+const {
+  globalErrorHandler,
+  errorRouter,
+} = require("./src/utilities/globalErrorHandler");
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -22,6 +25,6 @@ app.all("*", (req, res) => {
 
 // use error handler
 app.use(errorRouter);
-app.use(errorHandler);
+app.use(globalErrorHandler);
 
 module.exports = app;
