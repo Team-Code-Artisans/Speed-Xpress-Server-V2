@@ -1,5 +1,6 @@
 const { ParcelService } = require("./parcel.service");
 
+// API controller for insert a new parcel
 const createParcel = async (req, res) => {
   try {
     const result = await ParcelService.createParcel(req.body);
@@ -18,6 +19,7 @@ const createParcel = async (req, res) => {
   }
 };
 
+// API controller for get all parcels
 const getAllParcel = async (req, res) => {
   try {
     const result = await ParcelService.getAllParcel();
