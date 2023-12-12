@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
       message: "Email validation failed",
     },
   },
+  photoURL: {
+    type: String,
+  },
   number: {
     type: String,
   },
@@ -30,6 +33,10 @@ const userSchema = new mongoose.Schema({
   },
   address: {
     type: String,
+  },
+  role: {
+    type: String,
+    required: true,
   },
 });
 
