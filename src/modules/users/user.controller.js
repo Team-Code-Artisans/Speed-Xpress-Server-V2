@@ -1,5 +1,6 @@
 const { UserService } = require("./user.service");
 
+// API controller for insert a new user
 const createUser = async (req, res) => {
   try {
     const result = await UserService.createUser(req.body);
@@ -18,6 +19,7 @@ const createUser = async (req, res) => {
   }
 };
 
+// API controller for get all users
 const getAllUsers = async (req, res) => {
   try {
     const result = await UserService.getAllUsers();
@@ -36,6 +38,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+// API controller for get user by email
 const getUserByEmail = async (req, res) => {
   try {
     const email = req.query.email;
@@ -55,10 +58,67 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+// API controller for update user info by ID
+const updateUserInfoById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const option = { new: true };
+    const updatedData = {
+      $set: {
+        photoURL: data.photoURL,
+        number: data.number,
+        division: data.division,
+        district: data.district,
+        address: data.address,
+      },
+    };
+    const result = await UserService.updateUserInfoById(
+      id,
+      updatedData,
+      option
+    );
+
+    res.status(200).json({
+      status: "success",
+      message: "Updating user info by ID succeeded",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "Failed to updating user info by ID",
+      error: error.message,
+    });
+  }
+};
+
+// API controller for delete a user by ID
+const deleteUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await UserService.deleteUserById(id);
+
+    res.status(200).json({
+      status: "success",
+      message: "Deleting User by id succeeded",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "error",
+      message: "Failed to deleting user by id",
+      error: error.message,
+    });
+  }
+};
+
 module.exports.UserController = {
   createUser,
   getAllUsers,
   getUserByEmail,
+  updateUserInfoById,
+  deleteUserById,
 };
 
 // const asyncHandler = require("express-async-handler");
