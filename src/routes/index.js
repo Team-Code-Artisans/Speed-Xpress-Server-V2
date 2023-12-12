@@ -5,9 +5,9 @@ const { ParcelRoute } = require("../modules/parcels/parcel.route");
 const router = express.Router();
 
 // user routes
-router.use("/user", UserRoute);
+router.use("/users", UserRoute);
 
 // parcel routes
-router.use("/parcel", ParcelRoute);
+router.use("/parcels", ParcelRoute);
 
 module.exports = router;
