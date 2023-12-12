@@ -49,12 +49,8 @@ const parcelSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  dateTime: {
     type: Date,
-    required: true,
-  },
-  time: {
-    type: String,
     required: true,
   },
   TotalChargedAmount: {
