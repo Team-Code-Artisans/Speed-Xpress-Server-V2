@@ -13,7 +13,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1", router);
+app.use("/api/v2", router);
 
 app.get("/", (req, res) => {
   res.send("server is running!");
