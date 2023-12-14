@@ -42,13 +42,21 @@ const getAllUsers = async (req, res) => {
 const getUserByEmail = async (req, res) => {
   try {
     const email = req.query.email;
-    const result = await UserService.getUserByEmail(email);
 
-    res.status(200).json({
-      status: "success",
-      message: "Get User Data by email Successfully!",
-      data: result,
-    });
+    if (!email) {
+      res.status(404).json({
+        status: "Not Found",
+        message: "Please Provide a email",
+      });
+    } else {
+      const result = await UserService.getUserByEmail(email);
+
+      res.status(200).json({
+        status: "success",
+        message: "Get User Data by email Successfully!",
+        data: result,
+      });
+    }
   } catch (error) {
     res.status(400).json({
       status: "error",

@@ -2,8 +2,15 @@ const UserModel = require("./user.model");
 
 // Database Query for insert a new user
 const createUser = async (payload) => {
-  const result = await UserModel.create(payload);
-  return result;
+  const { email } = payload;
+  const isExist = await UserModel.findOne({ email: email });
+  console.log(isExist);
+
+  if (!isExist) {
+    const result = await UserModel.create(payload);
+    return result;
+  }
+  return isExist;
 };
 
 // Database Query for get all users
