@@ -12,6 +12,8 @@ const getAllParcel = async () => {
   return result;
 };
 
+// Database Query for update a parcel by ID
+
 module.exports.ParcelService = {
   createParcel,
   getAllParcel,
