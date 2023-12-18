@@ -1,26 +1,28 @@
 const mongoose = require("mongoose");
 
-const parcelSchema = new mongoose.Schema({
+const ParcelSchema = new mongoose.Schema({
   parcelId: {
     type: String,
     required: [true, "Parcel ID is required"],
+    unique: true,
   },
   senderInfo: {
     name: { type: String, required: [true, "Please provide sender name"] },
-    number: { type: Number, required: true },
+    number: { type: String, required: true },
     address: {
       type: String,
       required: [true, "Please provide sender address"],
     },
   },
-  RecipientInfo: {
+  recipientInfo: {
     name: { type: String, required: [true, "Please provide Recipient name"] },
-    number: { type: Number, required: true },
+    number: { type: String, required: true },
     address: {
       type: String,
       required: [true, "Please provide Recipient address"],
     },
   },
+  description: { type: String },
   parcelWeight: { type: Number, required: true },
   parcelStatus: { type: String, required: true },
   deliveryDateTime: { type: Date, required: true },
@@ -40,7 +42,7 @@ const parcelSchema = new mongoose.Schema({
   },
 });
 
-const ParcelModel = mongoose.model("parcels", parcelSchema);
+const ParcelModel = mongoose.model("parcels", ParcelSchema);
 
 module.exports = ParcelModel;
 

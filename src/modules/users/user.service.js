@@ -4,7 +4,7 @@ const UserModel = require("./user.model");
 const createUser = async (payload) => {
   const { email } = payload;
   const isExist = await UserModel.findOne({ email: email });
-  console.log(isExist);
+  // console.log(isExist);
 
   if (!isExist) {
     const result = await UserModel.create(payload);

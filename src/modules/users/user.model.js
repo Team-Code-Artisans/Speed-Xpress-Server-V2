@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  merchantInfo: {
+    merchantId: { type: String },
+    shopName: { type: String },
+  },
 });
 
 const UserModel = mongoose.model("users", userSchema);

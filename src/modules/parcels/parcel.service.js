@@ -1,9 +1,20 @@
-const { ParcelModel } = require("./parcel.model");
+const ParcelModel = require("./parcel.model");
+const generateParcelID = require("../../utilities/generateParcelID");
 
 // Database Query for insert a new parcel
 const createParcel = async (payload) => {
-  const result = await ParcelModel.create(payload);
-  return result;
+  let parcelId = generateParcelID(6);
+
+  const isExist = await ParcelModel.findOne({ parcelId: parcelId });
+
+  if (!isExist) {
+    const result = await ParcelModel.create({ parcelId, ...payload });
+    return result;
+  } else {
+    parcelId = generateParcelID(6);
+    const result = await ParcelModel.create({ parcelId, ...payload });
+    return result;
+  }
 };
 
 // Database Query for get all parcels
