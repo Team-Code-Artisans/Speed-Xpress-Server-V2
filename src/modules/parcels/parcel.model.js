@@ -9,6 +9,7 @@ const ParcelSchema = new mongoose.Schema({
   senderInfo: {
     name: { type: String, required: [true, "Please provide sender name"] },
     number: { type: String, required: true },
+    senderEmail: { type: String, required: true },
     address: {
       type: String,
       required: [true, "Please provide sender address"],
@@ -17,6 +18,7 @@ const ParcelSchema = new mongoose.Schema({
   recipientInfo: {
     name: { type: String, required: [true, "Please provide Recipient name"] },
     number: { type: String, required: true },
+    recipientEmail: { type: String, required: true },
     address: {
       type: String,
       required: [true, "Please provide Recipient address"],

@@ -30,6 +30,9 @@ const getParcelById = async (id) => {
   return result;
 };
 
+// Database Query for get parcels by email
+const getParcelsByEmail = async () => {};
+
 // Database Query for update a parcel by ID
 
 module.exports.ParcelService = {
