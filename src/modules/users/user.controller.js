@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      message: "User Data inserted Successfully!",
+      message: "User Data inserted succeeded!",
       data: result,
     });
   } catch (error) {
@@ -26,7 +26,7 @@ const getAllUsers = async (req, res) => {
 
     res.status(200).json({
       status: "success",
-      message: "Get All User Data Successfully!",
+      message: "Get All User Data succeeded!",
       data: result,
     });
   } catch (error) {
@@ -53,7 +53,7 @@ const getUserByEmail = async (req, res) => {
 
       res.status(200).json({
         status: "success",
-        message: "Get User Data by email Successfully!",
+        message: "Get User Data by email succeeded!",
         data: result,
       });
     }
