@@ -23,9 +23,17 @@ const getAllParcel = async () => {
   return result;
 };
 
+// Database Query for get parcel by ID
+const getParcelById = async (id) => {
+  const parcelId = { parcelId: id };
+  const result = await ParcelModel.findOne(parcelId);
+  return result;
+};
+
 // Database Query for update a parcel by ID
 
 module.exports.ParcelService = {
   createParcel,
   getAllParcel,
+  getParcelById,
 };
