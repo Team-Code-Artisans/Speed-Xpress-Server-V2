@@ -12,4 +12,7 @@ router.get("/all-parcel", ParcelController.getAllParcel);
 // get parcel by id route
 router.get("/:id", ParcelController.getParcelByID);
 
+// get parcels by email route
+router.get("/", ParcelController.getParcelsByEmail);
+
 module.exports.ParcelRoute = router;

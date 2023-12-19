@@ -1,3 +1,4 @@
+const { response } = require("express");
 const { ParcelService } = require("./parcel.service");
 
 // API controller for insert a new parcel
@@ -58,8 +59,28 @@ const getParcelByID = async (req, res) => {
   }
 };
 
+// API controller for get parcels by ID
+const getParcelsByEmail = async (req, res) => {
+  try {
+    const email = req.query.email;
+    const result = await ParcelService.getParcelsByEmail(email);
+
+    res.status(200).json({
+      status: "success",
+      message: "Get parcels by email succeed!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to get parcels by email",
+      error: error.message,
+    });
+  }
+};
 module.exports.ParcelController = {
   createParcel,
   getAllParcel,
   getParcelByID,
+  getParcelsByEmail,
 };
