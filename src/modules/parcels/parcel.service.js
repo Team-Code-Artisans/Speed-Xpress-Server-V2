@@ -30,10 +30,18 @@ const getParcelById = async (id) => {
   return result;
 };
 
+// Database Query for get parcels by email
+const getParcelsByEmail = async (email) => {
+  const senderEmail = { senderEmail: email };
+  const result = await ParcelModel.find({ senderInfo: senderEmail });
+  return result;
+};
+
 // Database Query for update a parcel by ID
 
 module.exports.ParcelService = {
   createParcel,
   getAllParcel,
   getParcelById,
+  getParcelsByEmail,
 };
