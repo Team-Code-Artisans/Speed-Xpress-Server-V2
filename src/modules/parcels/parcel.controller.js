@@ -78,9 +78,31 @@ const getParcelsByEmail = async (req, res) => {
     });
   }
 };
+
+// API controller for delete parcel by ID
+const deleteParcelById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await ParcelService.deleteParcelById(id);
+
+    res.status(200).json({
+      statusbar: "success",
+      message: "Delete parcel by ID success!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to delete parcel by ID",
+      error: error.message,
+    });
+  }
+};
+
 module.exports.ParcelController = {
   createParcel,
   getAllParcel,
   getParcelByID,
   getParcelsByEmail,
+  deleteParcelById,
 };

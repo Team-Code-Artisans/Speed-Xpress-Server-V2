@@ -39,9 +39,16 @@ const getParcelsByEmail = async (email) => {
 
 // Database Query for update a parcel by ID
 
+// Database Query for delete a parcel by ID
+const deleteParcelById = async (id) => {
+  const result = await ParcelModel.findOneAndDelete(id);
+  return result;
+};
+
 module.exports.ParcelService = {
   createParcel,
   getAllParcel,
   getParcelById,
   getParcelsByEmail,
+  deleteParcelById,
 };
