@@ -7,36 +7,24 @@ const ParcelSchema = new mongoose.Schema({
     unique: true,
   },
   senderInfo: {
-    type: {
-      name: String,
-      email: String,
-      number: String,
-      address: {
-        type: {
-          division: String,
-          district: String,
-          address: String,
-        },
-        required: true,
-      },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    number: { type: String, required: true },
+    address: {
+      division: { type: String, required: true },
+      district: { type: String, required: true },
+      address: { type: String, required: true },
     },
-    required: true,
   },
   recipientInfo: {
-    type: {
-      name: String,
-      email: String,
-      number: String,
-      address: {
-        type: {
-          division: String,
-          district: String,
-          address: String,
-        },
-        required: true,
-      },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    number: { type: String, required: true },
+    address: {
+      division: { type: String, required: true },
+      district: { type: String, required: true },
+      address: { type: String, required: true },
     },
-    required: true,
   },
   description: { type: String },
   parcelWeight: { type: String, required: true },
@@ -46,19 +34,15 @@ const ParcelSchema = new mongoose.Schema({
   deliveryDateTime: { type: String, required: true },
 
   merchantInfo: {
-    type: {
-      merchantId: String,
-      merchantName: String,
-      shopName: String,
-      contactNumber: String,
-      email: String,
-      address: {
-        type: {
-          division: String,
-          district: String,
-          address: String,
-        },
-      },
+    merchantId: { type: String, required: true },
+    merchantName: { type: String, required: true },
+    shopName: { type: String, required: true },
+    contactNumber: { type: String, required: true },
+    email: { type: String, required: true },
+    address: {
+      division: { type: String, required: true },
+      district: { type: String, required: true },
+      address: { type: String, required: true },
     },
   },
   paymentInfo: {
