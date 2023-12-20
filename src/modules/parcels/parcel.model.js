@@ -7,38 +7,62 @@ const ParcelSchema = new mongoose.Schema({
     unique: true,
   },
   senderInfo: {
-    name: { type: String, required: [true, "Please provide sender name"] },
-    number: { type: String, required: true },
-    senderEmail: { type: String, required: true },
-    address: {
-      type: String,
-      required: [true, "Please provide sender address"],
+    type: {
+      name: String,
+      email: String,
+      number: String,
+      address: {
+        type: {
+          division: String,
+          district: String,
+          address: String,
+        },
+        required: true,
+      },
     },
+    required: true,
   },
   recipientInfo: {
-    name: { type: String, required: [true, "Please provide Recipient name"] },
-    number: { type: String, required: true },
-    recipientEmail: { type: String, required: true },
-    address: {
-      type: String,
-      required: [true, "Please provide Recipient address"],
+    type: {
+      name: String,
+      email: String,
+      number: String,
+      address: {
+        type: {
+          division: String,
+          district: String,
+          address: String,
+        },
+        required: true,
+      },
     },
+    required: true,
   },
   description: { type: String },
-  parcelWeight: { type: Number, required: true },
-  parcelStatus: { type: String, required: true },
-  deliveryDateTime: { type: Date, required: true },
+  parcelWeight: { type: String, required: true },
+  parcelQuantity: { type: String, required: true },
   shippingMethod: { type: String, required: true },
-  deliveryLocation: { type: String, required: true },
+  parcelStatus: { type: String, required: true },
+  deliveryDateTime: { type: String, required: true },
+
   merchantInfo: {
-    merchantId: { type: String },
-    merchantName: { type: String },
-    shopName: { type: String },
-    contactNumber: { type: String },
-    email: { type: String },
-    address: { type: String },
+    type: {
+      merchantId: String,
+      merchantName: String,
+      shopName: String,
+      contactNumber: String,
+      email: String,
+      address: {
+        type: {
+          division: String,
+          district: String,
+          address: String,
+        },
+      },
+    },
   },
   paymentInfo: {
+    method: { type: String, required: true },
     status: { type: String, required: true },
     amount: { type: Number, required: true },
   },
@@ -49,52 +73,83 @@ const ParcelModel = mongoose.model("parcels", ParcelSchema);
 module.exports = ParcelModel;
 
 /*
-enum Status {
-  Pending = "pending",
-  Accepted = "accepted",
-  Picked = "picked",
-  Delivered = "delivered",
-}
-
-enum PaymentStatus {
-  Pending = "pending",
-  Paid = "paid",
-}
-
-type SenderInfo = {
-  name: string;
-  number: string;
-  address: string;
-};
-
-type RecipientInfo = {
-  name: string;
-  number: string;
-  address: string;
-};
-
-type MerchantInfo = {
-  merchantId: string;
-  merchantName: string;
-  shopName: string;
-  contactNumber: string;
-  email: string;
-  address: string;
-};
-type Parcel = {
-  parcelId: string;
-  senderInfo: SenderInfo;
-  recipientInfo: RecipientInfo;
-  parcelWeight: number;
-  status: Status;
-  deliveryDateTime: Date;
-  shippingMethod: string;
-  deliveryLocation: string;
-  merchantInfo?: MerchantInfo;
-
+ senderInfo: {
+    type: {
+      name: String,
+      email: String,
+      number: String,
+      address: {
+        type: {
+          division: String,
+          district: String,
+          address: String,
+        },
+        required: true,
+      },
+    },
+    required: true,
+  },
+  recipientInfo: {
+    type: {
+      name: String,
+      email: String,
+      number: String,
+      address: {
+        type: {
+          division: String,
+          district: String,
+          address: String,
+        },
+        required: true,
+      },
+    },
+    required: true,
+  },
+  parcelWeight: {
+    type: String,
+    required: true,
+  },
+  parcelQuantity: {
+    type: String,
+    required: true,
+  },
+  deliveryOption: {
+    type: String,
+    required: true,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
+  parcelStatus: {
+    type: String,
+    required: true,
+  },
+  deliveryDateTime: {
+    type: String,
+    required: true,
+  },
+  merchantInfo: {
+    type: {
+      merchantId: String,
+      merchantName: String,
+      shopName: String,
+      contactNumber: String,
+      email: String,
+      address: String,
+    },
+  },
   paymentInfo: {
-    status: PaymentStatus;
-    amount: number;
-  };
-};
+    type: {
+      status: {
+        type: String,
+        required: true,
+      },
+      amount: {
+        type: Number,
+        required: true,
+      },
+    },
+    required: true,
+  },
 */
