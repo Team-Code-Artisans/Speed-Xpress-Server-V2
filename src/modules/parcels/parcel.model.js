@@ -7,13 +7,13 @@ const ParcelSchema = new mongoose.Schema({
     unique: true,
   },
   senderInfo: {
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    number: { type: String, required: true },
+    name: { type: String },
+    email: { type: String },
+    number: { type: String },
     address: {
-      division: { type: String, required: true },
-      district: { type: String, required: true },
-      address: { type: String, required: true },
+      division: { type: String },
+      district: { type: String },
+      address: { type: String },
     },
   },
   recipientInfo: {
@@ -34,15 +34,15 @@ const ParcelSchema = new mongoose.Schema({
   deliveryDateTime: { type: String, required: true },
 
   merchantInfo: {
-    merchantId: { type: String, required: true },
-    merchantName: { type: String, required: true },
-    shopName: { type: String, required: true },
-    contactNumber: { type: String, required: true },
-    email: { type: String, required: true },
+    merchantId: { type: String },
+    merchantName: { type: String },
+    shopName: { type: String },
+    contactNumber: { type: String },
+    email: { type: String },
     address: {
-      division: { type: String, required: true },
-      district: { type: String, required: true },
-      address: { type: String, required: true },
+      division: { type: String },
+      district: { type: String },
+      address: { type: String },
     },
   },
   paymentInfo: {
