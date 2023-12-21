@@ -9,7 +9,6 @@ const createParcel = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: "Failed to create Parcel",
       error: error.message,
     });
@@ -24,7 +23,6 @@ const getAllParcel = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: "Failed to get all Parcel",
       error: error.message,
     });
@@ -40,7 +38,6 @@ const getParcelByID = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: "Failed to get Parcel info by ID",
       error: error.message,
     });
@@ -53,10 +50,16 @@ const getParcelsByEmail = async (req, res) => {
     const email = req.query.email;
     const result = await ParcelService.getParcelsByEmail(email);
 
-    res.status(200).json(result);
+    if (result.length === 0) {
+      res.status(404).json({
+        message: "No parcels found for the given email",
+        data: [],
+      });
+    } else {
+      res.status(200).json(result);
+    }
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: "Failed to get parcels by email",
       error: error.message,
     });
@@ -72,7 +75,6 @@ const deleteParcelById = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
-      status: "error",
       message: "Failed to delete parcel by ID",
       error: error.message,
     });
