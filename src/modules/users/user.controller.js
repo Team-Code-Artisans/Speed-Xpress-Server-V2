@@ -5,11 +5,7 @@ const createUser = async (req, res) => {
   try {
     const result = await UserService.createUser(req.body);
 
-    res.status(200).json({
-      status: "success",
-      message: "User Data inserted succeeded!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -24,11 +20,7 @@ const getAllUsers = async (req, res) => {
   try {
     const result = await UserService.getAllUsers();
 
-    res.status(200).json({
-      status: "success",
-      message: "Get All User Data succeeded!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -51,11 +43,7 @@ const getUserByEmail = async (req, res) => {
     } else {
       const result = await UserService.getUserByEmail(email);
 
-      res.status(200).json({
-        status: "success",
-        message: "Get User Data by email succeeded!",
-        data: result,
-      });
+      res.status(200).json(result);
     }
   } catch (error) {
     res.status(400).json({
@@ -87,11 +75,7 @@ const updateUserInfoById = async (req, res) => {
       option
     );
 
-    res.status(200).json({
-      status: "success",
-      message: "Updating user info by ID succeeded",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "error",
@@ -107,11 +91,7 @@ const deleteUserById = async (req, res) => {
     const id = req.params.id;
     const result = await UserService.deleteUserById(id);
 
-    res.status(200).json({
-      status: "success",
-      message: "Deleting User by id succeeded",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
       status: "error",
