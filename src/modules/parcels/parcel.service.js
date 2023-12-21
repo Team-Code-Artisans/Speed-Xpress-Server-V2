@@ -32,7 +32,7 @@ const getParcelById = async (id) => {
 
 // Database Query for get parcels by email
 const getParcelsByEmail = async (email) => {
-  const senderEmail = { "senderInfo.senderEmail": email };
+  const senderEmail = { "senderInfo.email": email };
   const result = await ParcelModel.find(senderEmail);
   return result;
 };
