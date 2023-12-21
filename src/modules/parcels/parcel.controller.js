@@ -6,11 +6,7 @@ const createParcel = async (req, res) => {
   try {
     const result = await ParcelService.createParcel(req.body);
 
-    res.status(200).json({
-      status: "success",
-      message: "Parcel successfully created",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -25,11 +21,7 @@ const getAllParcel = async (req, res) => {
   try {
     const result = await ParcelService.getAllParcel();
 
-    res.status(200).json({
-      status: "success",
-      message: "Get all Parcels succeed!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -45,11 +37,7 @@ const getParcelByID = async (req, res) => {
     const parcelId = req.params.id;
     const result = await ParcelService.getParcelById(parcelId);
 
-    res.status(200).json({
-      status: "success",
-      message: "Get parcel info by succeed!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -65,11 +53,7 @@ const getParcelsByEmail = async (req, res) => {
     const email = req.query.email;
     const result = await ParcelService.getParcelsByEmail(email);
 
-    res.status(200).json({
-      status: "success",
-      message: "Get parcels by email succeed!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -85,11 +69,7 @@ const deleteParcelById = async (req, res) => {
     const id = req.params.id;
     const result = await ParcelService.deleteParcelById(id);
 
-    res.status(200).json({
-      statusbar: "success",
-      message: "Delete parcel by ID success!",
-      data: result,
-    });
+    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       status: "error",
