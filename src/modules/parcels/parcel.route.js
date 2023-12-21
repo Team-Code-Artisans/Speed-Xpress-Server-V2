@@ -15,6 +15,9 @@ router.get("/:id", ParcelController.getParcelByID);
 // get parcels by email route
 router.get("/", ParcelController.getParcelsByEmail);
 
+// update parcel info by id route
+router.put("/update-parcel/:id", ParcelController.updateParcelInfoById);
+
 // delete parcel by ID route
 router.delete("/:id", ParcelController.deleteParcelById);
 
