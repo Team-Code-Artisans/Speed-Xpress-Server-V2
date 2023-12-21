@@ -16,8 +16,6 @@ const ParcelSchema = new mongoose.Schema({
       address: { type: String },
     },
   },
-
-  // <updatable>
   recipientInfo: {
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -32,9 +30,7 @@ const ParcelSchema = new mongoose.Schema({
   parcelQuantity: { type: String, required: true },
   shippingMethod: { type: String, required: true },
   description: { type: String },
-  // different API method
   parcelStatus: { type: String, required: true },
-  // </updatable>
   deliveryDateTime: { type: String, required: true },
 
   merchantInfo: {
