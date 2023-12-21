@@ -8,7 +8,6 @@ const createUser = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      status: "error",
       message: "Failed to insert User Data",
       error: error.message,
     });
@@ -23,7 +22,6 @@ const getAllUsers = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      status: "error",
       message: "Failed to get all user data",
       error: error.message,
     });
@@ -37,7 +35,6 @@ const getUserByEmail = async (req, res) => {
 
     if (!email) {
       res.status(404).json({
-        status: "Not Found",
         message: "Please Provide a email",
       });
     } else {
@@ -47,7 +44,6 @@ const getUserByEmail = async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({
-      status: "error",
       message: "Failed to get user data by email",
       error: error.message,
     });
@@ -78,7 +74,6 @@ const updateUserInfoById = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      status: "error",
       message: "Failed to updating user info by ID",
       error: error.message,
     });
@@ -94,7 +89,6 @@ const deleteUserById = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      status: "error",
       message: "Failed to deleting user by id",
       error: error.message,
     });
