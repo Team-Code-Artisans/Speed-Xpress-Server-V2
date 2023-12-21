@@ -66,6 +66,37 @@ const getParcelsByEmail = async (req, res) => {
   }
 };
 
+// API controller for update parcel info by id
+const updateParcelInfoById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    const option = { new: true };
+    const updatedData = {
+      $set: {
+        recipientInfo: { ...data.recipientInfo },
+        parcelWeight: data.parcelWeight,
+        parcelQuantity: data.parcelQuantity,
+        shippingMethod: data.shippingMethod,
+        description: data.description,
+      },
+    };
+
+    const result = await ParcelService.updateParcelInfoById(
+      id,
+      updatedData,
+      option
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to updating parcel info by ID",
+      error: error.message,
+    });
+  }
+};
+
 // API controller for delete parcel by ID
 const deleteParcelById = async (req, res) => {
   try {
@@ -86,5 +117,6 @@ module.exports.ParcelController = {
   getAllParcel,
   getParcelByID,
   getParcelsByEmail,
+  updateParcelInfoById,
   deleteParcelById,
 };
