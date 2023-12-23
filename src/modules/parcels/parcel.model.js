@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// parcel schema
 const ParcelSchema = new mongoose.Schema({
   parcelId: {
     type: String,

@@ -17,13 +17,13 @@ const createParcel = async (payload) => {
   }
 };
 
-// Database Query for get all parcels
+// Database Query for get all parcels -
 const getAllParcel = async () => {
   const result = await ParcelModel.find();
   return result;
 };
 
-// Database Query for get parcel by ID
+// Database Query for get parcel by ID -
 const getParcelById = async (id) => {
   const parcelId = { parcelId: id };
   const result = await ParcelModel.findOne(parcelId);
