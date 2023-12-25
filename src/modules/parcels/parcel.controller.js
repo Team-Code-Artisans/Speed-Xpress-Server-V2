@@ -1,4 +1,3 @@
-const { response } = require("express");
 const { ParcelService } = require("./parcel.service");
 
 // API controller for insert a new parcel -
