@@ -13,7 +13,7 @@ router.get("/all-users", UserController.getAllUsers);
 router.get("/", UserController.getUserByEmail);
 
 // update parcel by ID route
-router.put("/update-user", UserController.updateUserInfoById);
+router.put("/update-user/:id", UserController.updateUserInfoById);
 
 // delete user by ID route
 router.delete("/:id", UserController.deleteUserById);
