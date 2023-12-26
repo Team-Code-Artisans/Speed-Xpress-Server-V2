@@ -46,6 +46,8 @@ const getParcelByID = async (req, res) => {
 // API controller for get parcels by ID
 const getParcelsByEmail = async (req, res) => {
   try {
+    const decoded = req.decoded;
+    console.log(decoded);
     const email = req.query.email;
     const result = await ParcelService.getParcelsByEmail(email);
 
