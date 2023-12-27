@@ -1,5 +1,6 @@
 const express = require("express");
 const { UserController } = require("./user.controller");
+const verifyJWT = require("../../utilities/verifyJWT");
 
 const router = express.Router();
 
@@ -7,15 +8,15 @@ const router = express.Router();
 router.post("/create-user", UserController.createUser);
 
 // get all users route
-router.get("/all-users", UserController.getAllUsers);
+router.get("/all-users", verifyJWT, UserController.getAllUsers);
 
 // get user by email route
-router.get("/", UserController.getUserByEmail);
+router.get("/", verifyJWT, UserController.getUserByEmail);
 
-// update parcel by ID route
-router.put("/update-user/:id", UserController.updateUserInfoById);
+// update user by ID route
+router.put("/update-user/:id", verifyJWT, UserController.updateUserInfoById);
 
 // delete user by ID route
-router.delete("/:id", UserController.deleteUserById);
+router.delete("/:id", verifyJWT, UserController.deleteUserById);
 
 module.exports.UserRoute = router;

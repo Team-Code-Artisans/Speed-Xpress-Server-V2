@@ -14,7 +14,7 @@ router.get("/all-parcel", ParcelController.getAllParcel);
 router.get("/:id", ParcelController.getParcelByID);
 
 // get parcels by email route
-router.get("/", verifyJWT, ParcelController.getParcelsByEmail);
+router.get("/", ParcelController.getParcelsByEmail);
 
 // update parcel info by id route
 router.put("/update/:id", ParcelController.updateParcelInfoById);
