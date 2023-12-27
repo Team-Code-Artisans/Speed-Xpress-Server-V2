@@ -46,9 +46,16 @@ const getParcelByID = async (req, res) => {
 // API controller for get parcels by ID
 const getParcelsByEmail = async (req, res) => {
   try {
+    const email = req.query.email;
     const decoded = req.decoded;
     console.log(decoded);
-    const email = req.query.email;
+
+    if (decoded.email !== email) {
+      return res
+        .status(403)
+        .send("Forbidden access to parcels for the given email");
+    }
+
     const result = await ParcelService.getParcelsByEmail(email);
 
     if (result.length === 0) {
