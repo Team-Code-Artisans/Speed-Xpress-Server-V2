@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const verifyJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  console.log("authHeader:", authHeader);
+  const authHeader = req.headers.Authorization;
 
   if (!authHeader) {
     return res.status(401).json({
@@ -11,7 +9,17 @@ const verifyJWT = (req, res, next) => {
     });
   }
 
-  jwt.verify(authHeader, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+  const token = authHeader.split(" ")[1];
+
+  console.log("verify token:", token);
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized access",
+    });
+  }
+
+  jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid JWT token" });
     }
