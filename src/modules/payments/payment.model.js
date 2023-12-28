@@ -1,16 +1,9 @@
 const mongoose = require("mongoose");
 
 const invoiceSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-    required: true,
-  },
-  parcelId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "parcels",
-    required: true,
-  },
+  userEmail: { type: String, required: true },
+  userRole: { type: String, required: true },
+  parcelId: { type: String, required: true },
   amount: { type: Number, required: true },
   currency: { type: String, required: true },
   paymentMethod: { type: String, required: true },

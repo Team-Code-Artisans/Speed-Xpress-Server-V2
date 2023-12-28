@@ -9,20 +9,28 @@ const verifyJWT = (req, res, next) => {
     });
   }
 
-  const token = authHeader.split(" ")[1];
+  const tokens = authHeader.split(";");
 
-  if (!token) {
+  if (tokens.length !== 2) {
     return res.status(401).json({
       message: "Unauthorized access",
     });
   }
 
-  jwt.verify(token, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
+  const stripeToken = tokens[0].trim().replace("Bearer ", "");
+  const userToken = tokens[1].trim().replace("Bearer ", "");
+
+  jwt.verify(userToken, process.env.JWT_ACCESS_TOKEN, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid JWT token" });
     }
 
     req.decoded = decoded;
+
+    if (stripeToken !== process.env.STRIPE_PUBLISHABLE_KEY) {
+      return res.status(401).json({ message: "Invalid Stripe token" });
+    }
+
     next();
   });
 };
