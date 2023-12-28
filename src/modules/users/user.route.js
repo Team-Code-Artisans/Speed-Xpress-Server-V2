@@ -1,5 +1,6 @@
 const express = require("express");
 const { UserController } = require("./user.controller");
+const verifyJWT = require("../../utilities/verifyJWT");
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/all-users", UserController.getAllUsers);
 // get user by email route
 router.get("/", UserController.getUserByEmail);
 
-// update parcel by ID route
+// update user by ID route
 router.put("/update-user/:id", UserController.updateUserInfoById);
 
 // delete user by ID route

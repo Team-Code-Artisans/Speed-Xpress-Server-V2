@@ -48,7 +48,6 @@ const getParcelsByEmail = async (req, res) => {
   try {
     const email = req.query.email;
     const decoded = req.decoded;
-    console.log(decoded);
 
     if (decoded.email !== email) {
       return res

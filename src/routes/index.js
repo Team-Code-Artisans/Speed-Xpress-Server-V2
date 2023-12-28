@@ -3,6 +3,7 @@ const getJwtToken = require("../utilities/getJwtToken");
 const { UserRoute } = require("../modules/users/user.route");
 const { ParcelRoute } = require("../modules/parcels/parcel.route");
 const { PaymentRoute } = require("../modules/payments/payment.route");
+const verifyJWT = require("../utilities/verifyJWT");
 
 const router = express.Router();
 

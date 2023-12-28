@@ -5,6 +5,7 @@ const getJwtToken = async (req, res) => {
   const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
     expiresIn: "1h",
   });
+
   res.send(token);
 };
 
