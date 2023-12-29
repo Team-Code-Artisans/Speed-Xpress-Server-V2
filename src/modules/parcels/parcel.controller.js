@@ -112,9 +112,6 @@ const updateParcelInfoById = async (req, res) => {
     const updatedData = {
       $set: {
         recipientInfo: { ...data.recipientInfo },
-        parcelWeight: data.parcelWeight,
-        parcelQuantity: data.parcelQuantity,
-        shippingMethod: data.shippingMethod,
         description: data.description,
       },
     };

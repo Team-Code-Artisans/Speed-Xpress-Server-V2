@@ -7,6 +7,7 @@ const ParcelSchema = new mongoose.Schema({
     required: [true, "Parcel ID is required"],
     unique: true,
   },
+
   senderInfo: {
     name: { type: String },
     email: { type: String },
@@ -17,6 +18,7 @@ const ParcelSchema = new mongoose.Schema({
       address: { type: String },
     },
   },
+
   recipientInfo: {
     name: { type: String, required: true },
     email: { type: String, required: true },
@@ -27,6 +29,7 @@ const ParcelSchema = new mongoose.Schema({
       address: { type: String, required: true },
     },
   },
+
   parcelWeight: { type: String, required: true },
   parcelQuantity: { type: String, required: true },
   shippingMethod: { type: String, required: true },
@@ -36,9 +39,9 @@ const ParcelSchema = new mongoose.Schema({
 
   merchantInfo: {
     merchantId: { type: String },
-    merchantName: { type: String },
+    ownerName: { type: String },
     shopName: { type: String },
-    contactNumber: { type: String },
+    number: { type: String },
     email: { type: String },
     address: {
       division: { type: String },
@@ -46,6 +49,7 @@ const ParcelSchema = new mongoose.Schema({
       address: { type: String },
     },
   },
+
   paymentInfo: {
     method: { type: String, required: true },
     status: { type: String, required: true },
