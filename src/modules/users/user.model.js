@@ -38,9 +38,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // fro merchant account
-  shop_name: { type: String },
-  // fro rider account
+  // For merchant account
+  shopName: { type: String },
+  // For rider account
   vehicle: { type: String },
 });
 
