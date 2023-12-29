@@ -1,7 +1,5 @@
-const Error = require("http-errors");
-
 const errorRouter = (req, res, next) => {
-  next(Error(404, "Route Not Found"));
+  next(res.status(404).json("Route Not Found"));
 };
 
 const globalErrorHandler = (error, req, res, next) => {
