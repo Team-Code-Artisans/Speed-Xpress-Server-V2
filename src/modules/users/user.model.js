@@ -38,10 +38,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  merchantInfo: {
-    merchantId: { type: String },
-    shopName: { type: String },
-  },
+  // fro merchant account
+  shop_name: { type: String },
+  // fro rider account
+  vehicle: { type: String },
 });
 
 const UserModel = mongoose.model("users", userSchema);
