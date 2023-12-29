@@ -1,9 +1,9 @@
 const express = require("express");
 const getJwtToken = require("../utilities/getJwtToken");
 const { UserRoute } = require("../modules/users/user.route");
+const { ShopRoute } = require("../modules/shops/shop.route");
 const { ParcelRoute } = require("../modules/parcels/parcel.route");
 const { PaymentRoute } = require("../modules/payments/payment.route");
-const verifyJWT = require("../utilities/verifyJWT");
 
 const router = express.Router();
 
@@ -12,6 +12,9 @@ router.post("/jwt", getJwtToken);
 
 // user routes
 router.use("/users", UserRoute);
+
+// shop routes
+router.use("/shops", ShopRoute);
 
 // parcel routes
 router.use("/parcels", ParcelRoute);
