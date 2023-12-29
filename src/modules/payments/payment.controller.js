@@ -1,9 +1,11 @@
 const { uid } = require("uid");
+const { PaymentService } = require("./payment.service");
 const InvoiceModel = require("./payment.model");
 const stripe = require("stripe")(
   "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
 );
 
+// API controller for get make payment -
 const createPayment = async (req, res) => {
   try {
     const {
@@ -16,6 +18,13 @@ const createPayment = async (req, res) => {
       paymentDateTime,
       paymentMethod,
     } = req.body;
+    const decoded = req.decoded;
+
+    if (decoded.email !== userEmail) {
+      return res
+        .status(403)
+        .send("Forbidden access to make payment for the given email");
+    }
 
     const price = amount * 100;
 
@@ -64,6 +73,27 @@ const createPayment = async (req, res) => {
   }
 };
 
-module.exports = {
+// API controller for get all invoices
+const getAllInvoices = async (req, res) => {
+  try {
+    const decoded = req.decoded;
+
+    if (decoded.role !== "admin") {
+      return res.status(403).send("Forbidden access to get all invoices");
+    }
+
+    const result = await PaymentService.getAllInvoices();
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get all invoices",
+      error: error.message,
+    });
+  }
+};
+
+module.exports.PaymentController = {
   createPayment,
+  getAllInvoices,
 };

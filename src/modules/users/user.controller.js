@@ -17,6 +17,14 @@ const createUser = async (req, res) => {
 // API controller for get all users
 const getAllUsers = async (req, res) => {
   try {
+    const decoded = req.decoded;
+
+    if (decoded.role !== "admin") {
+      return res
+        .status(403)
+        .send("Forbidden access to get all user information");
+    }
+
     const result = await UserService.getAllUsers();
 
     res.status(200).json(result);
@@ -32,6 +40,13 @@ const getAllUsers = async (req, res) => {
 const getUserByEmail = async (req, res) => {
   try {
     const email = req.query.email;
+    const decoded = req.decoded;
+
+    if (decoded.email !== email) {
+      return res
+        .status(403)
+        .send("Forbidden access to get user information for the given email");
+    }
 
     if (!email) {
       res.status(404).json({
@@ -55,6 +70,14 @@ const updateUserInfoById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
+    const decoded = req.decoded;
+
+    if (decoded.email !== undefined) {
+      return res
+        .status(403)
+        .send("Forbidden access to update user info for the given id");
+    }
+
     const option = { new: true };
     const updatedData = {
       $set: {
@@ -84,6 +107,14 @@ const updateUserInfoById = async (req, res) => {
 const deleteUserById = async (req, res) => {
   try {
     const id = req.params.id;
+    const decoded = req.decoded;
+
+    if (decoded.email !== undefined) {
+      return res
+        .status(403)
+        .send("Forbidden access to delete user for the given id");
+    }
+
     const result = await UserService.deleteUserById(id);
 
     res.status(200).json(result);

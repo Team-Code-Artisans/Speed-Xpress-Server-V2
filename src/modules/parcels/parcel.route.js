@@ -5,24 +5,28 @@ const { ParcelController } = require("./parcel.controller");
 const router = express.Router();
 
 // create a parcel route -
-router.post("/create-parcel", ParcelController.createParcel);
+router.post("/create-parcel", verifyJWT, ParcelController.createParcel);
 
 // get all parcel route -
-router.get("/all-parcel", ParcelController.getAllParcel);
+router.get("/all-parcel", verifyJWT, ParcelController.getAllParcel);
 
 // get parcel by id route
-router.get("/:id", ParcelController.getParcelByID);
+router.get("/:id", verifyJWT, ParcelController.getParcelByID);
 
 // get parcels by email route
-router.get("/", ParcelController.getParcelsByEmail);
+router.get("/", verifyJWT, ParcelController.getParcelsByEmail);
 
 // update parcel info by id route
-router.put("/update/:id", ParcelController.updateParcelInfoById);
+router.put("/update/:id", verifyJWT, ParcelController.updateParcelInfoById);
 
 // update parcel status by id route
-router.put("/update-status/:id", ParcelController.updateParcelStatusById);
+router.put(
+  "/update-status/:id",
+  verifyJWT,
+  ParcelController.updateParcelStatusById
+);
 
 // delete parcel by ID route
-router.delete("/:id", ParcelController.deleteParcelById);
+router.delete("/:id", verifyJWT, ParcelController.deleteParcelById);
 
 module.exports.ParcelRoute = router;

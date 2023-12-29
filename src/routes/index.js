@@ -14,9 +14,9 @@ router.post("/jwt", getJwtToken);
 router.use("/users", UserRoute);
 
 // parcel routes
-router.use("/parcels", verifyJWT, ParcelRoute);
+router.use("/parcels", ParcelRoute);
 
 // payment routes
-router.use("/payment", verifyJWT, PaymentRoute);
+router.use("/payment", PaymentRoute);
 
 module.exports = router;
