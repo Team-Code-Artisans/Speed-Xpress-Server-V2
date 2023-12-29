@@ -1,9 +1,9 @@
 const ParcelModel = require("./parcel.model");
-const generateParcelID = require("../../utilities/generateParcelID");
+const { uid } = require("uid");
 
 // Database Query for insert a new parcel
 const createParcel = async (payload) => {
-  let parcelId = generateParcelID(6);
+  let parcelId = `SX${uid(6)}`;
 
   const isExist = await ParcelModel.findOne({ parcelId: parcelId });
 
@@ -11,7 +11,7 @@ const createParcel = async (payload) => {
     const result = await ParcelModel.create({ parcelId, ...payload });
     return result;
   } else {
-    parcelId = generateParcelID(6);
+    parcelId = `SX${uid(6)}`;
     const result = await ParcelModel.create({ parcelId, ...payload });
     return result;
   }

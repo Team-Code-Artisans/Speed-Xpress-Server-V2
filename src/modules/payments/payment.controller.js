@@ -1,3 +1,4 @@
+const { uid } = require("uid");
 const InvoiceModel = require("./payment.model");
 const stripe = require("stripe")(
   "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
@@ -5,11 +6,20 @@ const stripe = require("stripe")(
 
 const createPayment = async (req, res) => {
   try {
-    let { amount, parcelId, userEmail, userRole, status, paymentDateTime } =
-      req.body;
-    amount = amount * 1000;
+    const {
+      amount,
+      parcelId,
+      userEmail,
+      userName,
+      userRole,
+      status,
+      paymentDateTime,
+      paymentMethod,
+    } = req.body;
 
-    // Create a payment checkout with the order amount and currency
+    const price = amount * 100;
+
+    // Create a payment checkout
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -18,32 +28,34 @@ const createPayment = async (req, res) => {
             product_data: {
               name: "Parcel",
             },
-            unit_amount: amount,
+            unit_amount: price,
           },
           quantity: 1,
         },
       ],
+      customer_email: userEmail,
       mode: "payment",
       payment_method_types: ["card"],
-      success_url: `${process.env.BaseUrl}/dashboard/${userRole}/parcels`,
-      cancel_url: `${process.env.BaseUrl}/dashboard/${userRole}/parcels`,
+      success_url: `${process.env.CLIENT_URL}/dashboard/${userRole}/parcels`,
+      cancel_url: `${process.env.CLIENT_URL}/dashboard/${userRole}/parcels`,
     });
 
     // Save invoice
     await InvoiceModel.create({
       userEmail,
+      userName,
       userRole,
       parcelId,
       amount,
       status,
       paymentDateTime,
+      paymentMethod,
       currency: "usd",
-      paymentMethod: "card",
-      paymentIntentId: session.id,
+      paymentId: session ? session.id : uid(`test_${30}`),
     });
 
     // Send the Payment Session url to the client
-    res.status(200).json({ clientSecret: session.url });
+    res.status(200).json({ url: session.url });
   } catch (error) {
     res.status(500).json({
       message: "Failed to create Payment intent",
