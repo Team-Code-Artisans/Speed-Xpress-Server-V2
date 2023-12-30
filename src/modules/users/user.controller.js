@@ -42,7 +42,7 @@ const getUserByEmail = async (req, res) => {
     const email = req.query.email;
     const decoded = req.decoded;
 
-    if (decoded.email !== email) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to get user information for the given email");
@@ -72,7 +72,7 @@ const updateUserInfoById = async (req, res) => {
     const data = req.body;
     const decoded = req.decoded;
 
-    if (!decoded.email) {
+    if (decoded.email !== undefined) {
       return res
         .status(403)
         .send("Forbidden access to update user info for the given id");
@@ -109,7 +109,7 @@ const deleteUserById = async (req, res) => {
     const id = req.params.id;
     const decoded = req.decoded;
 
-    if (!decoded.email) {
+    if (decoded.email !== undefined) {
       return res
         .status(403)
         .send("Forbidden access to delete user for the given id");

@@ -71,7 +71,7 @@ const getParcelsByEmail = async (req, res) => {
     const email = req.query.email;
     const decoded = req.decoded;
 
-    if (decoded.email !== email) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to parcels for the given email");
