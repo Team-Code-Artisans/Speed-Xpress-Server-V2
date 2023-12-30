@@ -5,7 +5,7 @@ const createShop = async (req, res) => {
   try {
     //  const decoded = req.decoded;
 
-    //  if (decoded.email !== undefined) {
+    //  if (!decoded.email) {
     //    return res
     //      .status(403)
     //      .send("Forbidden access to create shop for the given email address");
