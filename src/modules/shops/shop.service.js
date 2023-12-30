@@ -17,6 +17,28 @@ const createShop = async (payload) => {
   }
 };
 
+// Database Query for get all shop information for admin users
+const getAllShops = async () => {
+  const result = await ShopModel.find();
+  return result;
+};
+
+// Database Query for get shop information by shopId
+const getShopById = async (id) => {
+  const shopId = { shopId: id };
+  const result = await ShopModel.findOne(shopId);
+  return result;
+};
+
+// Database Query for get shop information by email address
+const getShopByEmail = async (email) => {
+  const result = await ShopModel.find({ email });
+  return result;
+};
+
 module.exports.ShopService = {
   createShop,
+  getAllShops,
+  getShopById,
+  getShopByEmail,
 };
