@@ -49,7 +49,14 @@ const getParcelByID = async (req, res) => {
 
     const result = await ParcelService.getParcelById(parcelId);
 
-    res.status(200).json(result);
+    if (result.length === 0) {
+      res.status(404).json({
+        message: "No parcels found for the given parcelId",
+        data: [],
+      });
+    } else {
+      res.status(200).json(result);
+    }
   } catch (error) {
     res.status(500).json({
       message: "Failed to get Parcel info by ID",
