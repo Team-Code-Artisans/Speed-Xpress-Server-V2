@@ -6,6 +6,17 @@ const getAllInvoices = async () => {
   return invoices;
 };
 
+// Database Query for update payment status by ID
+const updatePaymentStatusById = async (id, updatedParcel, option) => {
+  const result = await InvoiceModel.findByIdAndUpdate(
+    id,
+    updatedParcel,
+    option
+  );
+  return result;
+};
+
 module.exports.PaymentService = {
   getAllInvoices,
+  updatePaymentStatusById,
 };

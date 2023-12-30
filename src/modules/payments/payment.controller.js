@@ -93,7 +93,43 @@ const getAllInvoices = async (req, res) => {
   }
 };
 
+// API controller for update parcel info by id
+const updatePaymentStatusById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    // const decoded = req.decoded;
+
+    // if (!decoded.email) {
+    //   return res
+    //     .status(403)
+    //     .send("Forbidden access to update parcel info for the given id");
+    // }
+
+    const option = { new: true };
+    const updatedData = {
+      $set: {
+        status: data.status,
+      },
+    };
+
+    const result = await PaymentService.updatePaymentStatusById(
+      id,
+      updatedData,
+      option
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to updating payment status by ID",
+      error: error.message,
+    });
+  }
+};
+
 module.exports.PaymentController = {
   createPayment,
   getAllInvoices,
+  updatePaymentStatusById,
 };
