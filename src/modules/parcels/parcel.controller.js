@@ -46,13 +46,6 @@ const getAllParcel = async (req, res) => {
 const getParcelByID = async (req, res) => {
   try {
     const parcelId = req.params.id;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to get parcel for the given id");
-    }
 
     const result = await ParcelService.getParcelById(parcelId);
 
