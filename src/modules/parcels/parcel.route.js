@@ -11,7 +11,7 @@ router.post("/create-parcel", verifyJWT, ParcelController.createParcel);
 router.get("/all-parcel", verifyJWT, ParcelController.getAllParcel);
 
 // get parcel by id route
-router.get("/:id", verifyJWT, ParcelController.getParcelByID);
+router.get("/:id", ParcelController.getParcelByID);
 
 // get parcels by email route
 router.get("/", verifyJWT, ParcelController.getParcelsByEmail);

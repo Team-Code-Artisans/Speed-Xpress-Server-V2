@@ -5,7 +5,7 @@ const createParcel = async (req, res) => {
   try {
     const decoded = req.decoded;
 
-    if (decoded.email !== undefined) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to create parcel for the given email address");
@@ -46,13 +46,6 @@ const getAllParcel = async (req, res) => {
 const getParcelByID = async (req, res) => {
   try {
     const parcelId = req.params.id;
-    const decoded = req.decoded;
-
-    if (decoded.email !== undefined) {
-      return res
-        .status(403)
-        .send("Forbidden access to get parcel for the given id");
-    }
 
     const result = await ParcelService.getParcelById(parcelId);
 
@@ -71,7 +64,7 @@ const getParcelsByEmail = async (req, res) => {
     const email = req.query.email;
     const decoded = req.decoded;
 
-    if (decoded.email !== email) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to parcels for the given email");
@@ -102,7 +95,7 @@ const updateParcelInfoById = async (req, res) => {
     const data = req.body;
     const decoded = req.decoded;
 
-    if (decoded.email !== undefined) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to update parcel info for the given id");
@@ -138,7 +131,7 @@ const updateParcelStatusById = async (req, res) => {
     const data = req.body;
     const decoded = req.decoded;
 
-    if (decoded.email !== undefined) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to update parcel status for the given id");
@@ -172,7 +165,7 @@ const deleteParcelById = async (req, res) => {
     const id = req.params.id;
     const decoded = req.decoded;
 
-    if (decoded.email !== undefined) {
+    if (!decoded.email) {
       return res
         .status(403)
         .send("Forbidden access to delete parcel for the given id");

@@ -6,7 +6,8 @@ const getJwtToken = async (req, res) => {
     expiresIn: "1h",
   });
 
-  res.send(token);
+  res.cookie("access_token", token, { httpOnly: true, secure: true });
+  res.send({ success: true });
 };
 
 module.exports = getJwtToken;
