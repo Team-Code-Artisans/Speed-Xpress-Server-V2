@@ -5,6 +5,7 @@ const invoiceSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   userRole: { type: String, required: true },
   parcelId: { type: String, required: true },
+  invoiceId: { type: String, required: true },
   amount: { type: Number, required: true },
   currency: { type: String, required: true },
   paymentMethod: { type: String, required: true },
