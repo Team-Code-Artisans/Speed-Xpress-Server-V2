@@ -19,4 +19,6 @@ router.get("/", ShopController.getShopByEmail);
 // update shop info by shopId route -
 router.put("/update-shop/:id");
 
+// delete shop info by shopId route -
+
 module.exports.ShopRoute = router;

@@ -5,7 +5,7 @@ const createShop = async (req, res) => {
   try {
     //  const decoded = req.decoded;
 
-    //  if (!decoded.email) {
+    //  if (!decoded.role === "merchant") {
     //    return res
     //      .status(403)
     //      .send("Forbidden access to create shop for the given email address");
@@ -62,6 +62,13 @@ const getShopById = async (req, res) => {
 const getShopByEmail = async (req, res) => {
   try {
     const email = req.query.email;
+    // const decoded = req.decoded;
+
+    // if (!decoded.email) {
+    //   return res
+    //     .status(403)
+    //     .send("Forbidden access to parcels for the given email");
+    // }
 
     const result = await ShopService.getShopByEmail(email);
 
