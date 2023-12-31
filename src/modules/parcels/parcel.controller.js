@@ -138,7 +138,7 @@ const updateParcelStatusById = async (req, res) => {
     const data = req.body;
     const decoded = req.decoded;
 
-    if (!decoded.email) {
+    if (!decoded.role === "admin" || !decoded.role === "rider") {
       return res
         .status(403)
         .send("Forbidden access to update parcel status for the given id");
