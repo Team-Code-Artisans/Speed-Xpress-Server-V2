@@ -1,0 +1,37 @@
+const InvoiceModel = require("./invoice.model");
+
+// Database Query for get all invoices
+const getAllInvoices = async () => {
+  const invoices = await InvoiceModel.find();
+  return invoices;
+};
+
+// Database Query for get invoice by ID
+const getInvoiceById = async (id) => {
+  const result = await InvoiceModel.findOne({ invoiceId: id });
+  return result;
+};
+
+// Database Query for get invoices by email address
+const getInvoicesByEmail = async (email) => {
+  const userEmail = { userEmail: email };
+  const result = await ParcelModel.find(userEmail);
+  return result;
+};
+
+// Database Query for update payment status by ID
+const updatePaymentStatusById = async (id, updatedParcel, option) => {
+  const result = await InvoiceModel.findByIdAndUpdate(
+    id,
+    updatedParcel,
+    option
+  );
+  return result;
+};
+
+module.exports.InvoiceService = {
+  getAllInvoices,
+  getInvoiceById,
+  getInvoicesByEmail,
+  updatePaymentStatusById,
+};
