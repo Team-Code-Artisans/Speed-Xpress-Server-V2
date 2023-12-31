@@ -12,8 +12,16 @@ const createShop = async (req, res) => {
     //  }
 
     const result = await ShopService.createShop(req.body);
+    console.log("result:", result);
 
-    res.status(200).json(result);
+    if (!result) {
+      res.status(400).json({
+        message: "Failed to create Shop",
+        error: error.message,
+      });
+    } else {
+      res.status(200).json(result);
+    }
   } catch (error) {
     res.status(500).json({
       message: "Failed to create Shop",
