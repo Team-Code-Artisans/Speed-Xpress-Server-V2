@@ -8,25 +8,14 @@ const stripe = require("stripe")(
 // API controller for get make payment -
 const createPayment = async (req, res) => {
   try {
-    const {
-      amount,
-      parcelId,
-      userEmail,
-      userName,
-      userRole,
-      status,
-      paymentDateTime,
-      paymentMethod,
-    } = req.body;
+    const data = req.body;
 
     const decoded = req.decoded;
-    if (decoded.email !== userEmail) {
+    if (decoded.email !== data.userEmail) {
       return res
         .status(403)
         .send("Forbidden access to make payment for the given email");
     }
-
-    const price = amount * 100;
 
     // Create a payment checkout
     const session = await stripe.checkout.sessions.create({
@@ -37,37 +26,46 @@ const createPayment = async (req, res) => {
             product_data: {
               name: "Parcel",
             },
-            unit_amount: price,
+            unit_amount: data.amount * 100,
           },
           quantity: 1,
         },
       ],
-      customer_email: userEmail,
+      customer_email: data.userEmail,
       mode: "payment",
       payment_method_types: ["card"],
-      success_url: `${process.env.CLIENT_URL}/dashboard/${userRole}/parcels`,
-      cancel_url: `${process.env.CLIENT_URL}/dashboard/${userRole}/parcels`,
+      success_url: `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`,
+      cancel_url: `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`,
     });
 
     // Create invoice ID
-    let invoiceId = `SXINVOICE${uid(6)}`;
+    let invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
+    const isExist = await InvoiceModel.findOne({ invoiceId });
 
-    // Save invoice
-    await InvoiceModel.create({
-      userEmail,
-      userName,
-      parcelId,
-      invoiceId,
-      amount,
-      status,
-      paymentDateTime,
-      paymentMethod,
-      currency: "usd",
-      paymentId: session ? session.id : uid(`test_${30}`),
-    });
+    if (!isExist) {
+      // Save invoice
+      await InvoiceModel.create({
+        ...data,
+        invoiceId,
+        currency: "usd",
+        paymentId: session ? session.id : uid(`test_${30}`),
+      });
 
-    // Send the Payment Session url to the client
-    res.status(200).json({ url: session.url });
+      // Send the Payment Session url to the client
+      res.status(200).json({ url: session.url });
+    } else {
+      invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
+      // Save invoice
+      await InvoiceModel.create({
+        ...data,
+        invoiceId,
+        currency: "usd",
+        paymentId: session ? session.id : uid(`test_${30}`),
+      });
+
+      // Send the Payment Session url to the client
+      res.status(200).json({ url: session.url });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Failed to create Payment intent",
