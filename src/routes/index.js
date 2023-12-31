@@ -3,7 +3,7 @@ const getJwtToken = require("../utilities/getJwtToken");
 const { UserRoute } = require("../modules/users/user.route");
 const { ShopRoute } = require("../modules/shops/shop.route");
 const { ParcelRoute } = require("../modules/parcels/parcel.route");
-const { PaymentRoute } = require("../modules/payments/payment.route");
+const { InvoiceRoute } = require("../modules/invoices/invoice.route");
 
 const router = express.Router();
 
@@ -20,6 +20,6 @@ router.use("/shops", ShopRoute);
 router.use("/parcels", ParcelRoute);
 
 // payment routes
-router.use("/payment", PaymentRoute);
+router.use("/payment", InvoiceRoute);
 
 module.exports = router;
