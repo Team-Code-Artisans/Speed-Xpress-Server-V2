@@ -18,8 +18,8 @@ const createPayment = async (req, res) => {
       paymentDateTime,
       paymentMethod,
     } = req.body;
-    const decoded = req.decoded;
 
+    const decoded = req.decoded;
     if (decoded.email !== userEmail) {
       return res
         .status(403)
@@ -49,12 +49,15 @@ const createPayment = async (req, res) => {
       cancel_url: `${process.env.CLIENT_URL}/dashboard/${userRole}/parcels`,
     });
 
+    // Create invoice ID
+    let invoiceId = `SXINVOICE${uid(6)}`;
+
     // Save invoice
     await InvoiceModel.create({
       userEmail,
       userName,
-      userRole,
       parcelId,
+      invoiceId,
       amount,
       status,
       paymentDateTime,

@@ -12,8 +12,6 @@ const getJwtToken = async (req, res) => {
       expiresIn: "1h",
     });
 
-    console.log("token:", token);
-
     res.cookie("access_token", token, { httpOnly: true, secure: true });
     res.status(200).json(user);
   } catch (error) {
