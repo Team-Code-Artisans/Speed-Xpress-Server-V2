@@ -9,7 +9,6 @@ const createShop = async (payload) => {
 
   if (!isExist) {
     const result = await ShopModel.create({ shopId, ...payload });
-    console.log("result:", result);
     return result;
   } else {
     shopId = `SXSHOP${uid(6)}`;
