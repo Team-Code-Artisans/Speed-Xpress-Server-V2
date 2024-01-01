@@ -5,7 +5,7 @@ const stripe = require("stripe")(
   "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
 );
 
-// API controller for get make payment -
+// API controller for get make payment online -
 const createPayment = async (req, res) => {
   try {
     const data = req.body;
@@ -73,6 +73,8 @@ const createPayment = async (req, res) => {
     });
   }
 };
+
+// API controller for get make payment online -
 
 // API controller for get all invoices
 const getAllInvoices = async (req, res) => {
