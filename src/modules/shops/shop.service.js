@@ -3,15 +3,16 @@ const ShopModel = require("./shop.model");
 
 // Database Query for insert a new parcel
 const createShop = async (payload) => {
-  let shopId = `SX${uid(6)}`;
+  let shopId = `SXSHOP${uid(6)}`;
 
-  const isExist = await ShopModel.findOne({ shopId: shopId });
+  const isExist = await ShopModel.findOne({ shopId });
 
   if (!isExist) {
     const result = await ShopModel.create({ shopId, ...payload });
+    console.log("result:", result);
     return result;
   } else {
-    shopId = `SX${uid(6)}`;
+    shopId = `SXSHOP${uid(6)}`;
     const result = await ShopModel.create({ shopId, ...payload });
     return result;
   }
