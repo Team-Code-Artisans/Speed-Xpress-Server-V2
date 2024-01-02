@@ -9,7 +9,7 @@ const getJwtToken = async (req, res) => {
     }
 
     const token = jwt.sign(user, process.env.JWT_ACCESS_TOKEN, {
-      expiresIn: "1h",
+      expiresIn: "1d",
     });
 
     res.cookie("access_token", token, { httpOnly: true, secure: true });
