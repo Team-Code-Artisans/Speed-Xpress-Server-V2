@@ -5,7 +5,7 @@ const stripe = require("stripe")(
   "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
 );
 
-// API controller for get make payment online -
+// API controller for create payment online -
 const createPayment = async (req, res) => {
   try {
     const data = req.body;
@@ -74,7 +74,27 @@ const createPayment = async (req, res) => {
   }
 };
 
-// API controller for get make payment online -
+// API controller for create payment offline -
+const createInvoice = async (req, res) => {
+  try {
+    // const decoded = req.decoded;
+
+    // if (decoded.email !== data.userEmail) {
+    //   return res
+    //     .status(403)
+    //     .send("Forbidden access to create invoice for the given email");
+    // }
+
+    const result = await InvoiceService.createInvoice(req.body);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      menubar: "Failed to create Invoice",
+      error: error.message,
+    });
+  }
+};
 
 // API controller for get all invoices
 const getAllInvoices = async (req, res) => {
@@ -186,6 +206,7 @@ const updatePaymentStatusById = async (req, res) => {
 
 module.exports.InvoiceController = {
   createPayment,
+  createInvoice,
   getAllInvoices,
   getInvoiceById,
   getInvoicesByEmail,

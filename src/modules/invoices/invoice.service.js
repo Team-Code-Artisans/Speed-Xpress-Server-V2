@@ -1,5 +1,11 @@
 const InvoiceModel = require("./invoice.model");
 
+// Database Query for create invoice offline
+const createInvoice = async (payload) => {
+  const result = await InvoiceModel.create(payload);
+  return result;
+};
+
 // Database Query for get all invoices
 const getAllInvoices = async () => {
   const invoices = await InvoiceModel.find();
@@ -30,6 +36,7 @@ const updatePaymentStatusById = async (id, updatedParcel, option) => {
 };
 
 module.exports.InvoiceService = {
+  createInvoice,
   getAllInvoices,
   getInvoiceById,
   getInvoicesByEmail,

@@ -17,7 +17,7 @@ router.get("/:id", ShopController.getShopById);
 router.get("/", ShopController.getShopByEmail);
 
 // update shop info by shopId route -
-router.put("/update-shop/:id");
+router.put("/update-shop/:id", ShopController.updateShopInfoById);
 
 // delete shop info by shopId route -
 
