@@ -36,9 +36,16 @@ const getShopByEmail = async (email) => {
   return result;
 };
 
+// Database Query for update shop info by ID
+const updateShopInfoById = async (id, updatedParcel, option) => {
+  const result = await ShopModel.findByIdAndUpdate(id, updatedParcel, option);
+  return result;
+};
+
 module.exports.ShopService = {
   createShop,
   getAllShops,
   getShopById,
   getShopByEmail,
+  updateShopInfoById,
 };
