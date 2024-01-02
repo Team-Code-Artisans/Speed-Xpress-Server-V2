@@ -42,10 +42,17 @@ const updateShopInfoById = async (id, updatedParcel, option) => {
   return result;
 };
 
+// Database Query for delete a shop by ID
+const deleteShopById = async (id) => {
+  const result = await ShopModel.findByIdAndDelete(id);
+  return result;
+};
+
 module.exports.ShopService = {
   createShop,
   getAllShops,
   getShopById,
   getShopByEmail,
   updateShopInfoById,
+  deleteShopById,
 };
