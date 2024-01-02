@@ -1,5 +1,6 @@
 const { uid } = require("uid");
 const { InvoiceService } = require("./invoice.service");
+const { ParcelService } = require("../parcels/parcel.service");
 const InvoiceModel = require("./invoice.model");
 const stripe = require("stripe")(
   "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
@@ -44,7 +45,7 @@ const createPayment = async (req, res) => {
 
     if (!isExist) {
       // Save invoice
-      await InvoiceModel.create({
+      const result = await InvoiceModel.create({
         ...data,
         invoiceId,
         currency: "usd",
@@ -52,11 +53,11 @@ const createPayment = async (req, res) => {
       });
 
       // Send the Payment Session url to the client
-      res.status(200).json({ url: session.url });
+      res.status(200).json({ url: session.url, id: result._id });
     } else {
       invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
       // Save invoice
-      await InvoiceModel.create({
+      const result = await InvoiceModel.create({
         ...data,
         invoiceId,
         currency: "usd",
@@ -64,7 +65,7 @@ const createPayment = async (req, res) => {
       });
 
       // Send the Payment Session url to the client
-      res.status(200).json({ url: session.url });
+      res.status(200).json({ url: session.url, id: result._id });
     }
   } catch (error) {
     res.status(500).json({
@@ -100,11 +101,11 @@ const createInvoice = async (req, res) => {
 // API controller for get all invoices
 const getAllInvoices = async (req, res) => {
   try {
-    const decoded = req.decoded;
+    // const decoded = req.decoded;
 
-    if (decoded.role !== "admin") {
-      return res.status(403).send("Forbidden access to get all invoices");
-    }
+    // if (decoded.role !== "admin") {
+    //   return res.status(403).send("Forbidden access to get all invoices");
+    // }
 
     const result = await InvoiceService.getAllInvoices();
 
@@ -121,6 +122,7 @@ const getAllInvoices = async (req, res) => {
 const getInvoiceById = async (req, res) => {
   try {
     const id = req.params.id;
+    console.log("id:", id);
 
     const result = await InvoiceService.getInvoiceById(id);
 
@@ -173,30 +175,44 @@ const getInvoicesByEmail = async (req, res) => {
 // API controller for update parcel info by _id
 const updatePaymentStatusById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const data = req.body;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to update parcel info for the given id");
-    }
+    const invoiceId = req.params.id;
+    const parcelId = req.body.parcelId;
+    const paymentStatus = req.body.status;
 
     const option = { new: true };
-    const updatedData = {
+    const invoicePaymentStatusUpdatedData = {
       $set: {
-        status: data.status,
+        status: paymentStatus,
       },
     };
 
-    const result = await InvoiceService.updatePaymentStatusById(
-      id,
-      updatedData,
+    const parcelPaymentStatusUpdatedData = {
+      $set: {
+        "paymentInfo.status": paymentStatus,
+      },
+    };
+
+    const invoiceResult = await InvoiceService.updatePaymentStatusById(
+      invoiceId,
+      invoicePaymentStatusUpdatedData,
       option
     );
 
-    res.status(200).json(result);
+    if (invoiceResult !== null) {
+      const parcelResult = await ParcelService.updateParcelPaymentStatusById(
+        parcelId,
+        parcelPaymentStatusUpdatedData,
+        option
+      );
+
+      if (parcelResult !== null) {
+        res.status(200).json(parcelResult);
+      } else {
+        res.status(404).json("update parcel payment status not found");
+      }
+    } else {
+      res.status(404).json("update invoice payment status not found");
+    }
   } catch (error) {
     res.status(400).json({
       message: "Failed to updating payment status by id",

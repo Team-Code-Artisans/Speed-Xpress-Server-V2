@@ -49,6 +49,12 @@ const updateParcelStatusById = async (id, updatedParcel, option) => {
   return result;
 };
 
+// Database Query for update parcel payment status by _id
+const updateParcelPaymentStatusById = async (id, updatedParcel, option) => {
+  const result = await ParcelModel.findByIdAndUpdate(id, updatedParcel, option);
+  return result;
+};
+
 // Database Query for delete a parcel by _id
 const deleteParcelById = async (id) => {
   const result = await ParcelModel.findOneAndDelete(id);
@@ -62,5 +68,6 @@ module.exports.ParcelService = {
   getParcelsByEmail,
   updateParcelInfoById,
   updateParcelStatusById,
+  updateParcelPaymentStatusById,
   deleteParcelById,
 };

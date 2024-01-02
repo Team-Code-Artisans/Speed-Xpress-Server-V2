@@ -25,11 +25,11 @@ const createParcel = async (req, res) => {
 // API controller for get all parcels -
 const getAllParcel = async (req, res) => {
   try {
-    const decoded = req.decoded;
+    // const decoded = req.decoded;
 
-    if (decoded.role !== "admin") {
-      return res.status(403).send("Forbidden access to get all parcels");
-    }
+    // if (decoded.role !== "admin") {
+    //   return res.status(403).send("Forbidden access to get all parcels");
+    // }
 
     const result = await ParcelService.getAllParcel();
 
@@ -166,6 +166,41 @@ const updateParcelStatusById = async (req, res) => {
   }
 };
 
+// API controller for parcel status payment update by _id
+const updateParcelPaymentStatusById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    // const decoded = req.decoded;
+
+    // if (!decoded.email) {
+    //   return res
+    //     .status(403)
+    //     .send("Forbidden access to update parcel payment status for the given id");
+    // }
+
+    const option = { new: true };
+    const updatedData = {
+      $set: {
+        "paymentInfo.status": data.status,
+      },
+    };
+
+    const result = await ParcelService.updateParcelPaymentStatusById(
+      id,
+      updatedData,
+      option
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to updating parcel payment status by ID",
+      error: error.message,
+    });
+  }
+};
+
 // API controller for delete parcel by _id
 const deleteParcelById = async (req, res) => {
   try {
@@ -196,5 +231,6 @@ module.exports.ParcelController = {
   getParcelsByEmail,
   updateParcelInfoById,
   updateParcelStatusById,
+  updateParcelPaymentStatusById,
   deleteParcelById,
 };
