@@ -65,7 +65,7 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
-// API controller for update user info by ID
+// API controller for update user info by _id
 const updateUserInfoById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -103,7 +103,7 @@ const updateUserInfoById = async (req, res) => {
   }
 };
 
-// API controller for delete a user by ID
+// API controller for delete a user by _id
 const deleteUserById = async (req, res) => {
   try {
     const id = req.params.id;
