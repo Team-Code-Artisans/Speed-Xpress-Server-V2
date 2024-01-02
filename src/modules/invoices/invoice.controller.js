@@ -122,7 +122,6 @@ const getAllInvoices = async (req, res) => {
 const getInvoiceById = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log("id:", id);
 
     const result = await InvoiceService.getInvoiceById(id);
 
@@ -172,7 +171,7 @@ const getInvoicesByEmail = async (req, res) => {
   }
 };
 
-// API controller for update parcel info by _id
+// API controller for update payment status in invoice and parcel info by _id
 const updatePaymentStatusById = async (req, res) => {
   try {
     const invoiceId = req.params.id;
