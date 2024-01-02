@@ -25,11 +25,11 @@ const createParcel = async (req, res) => {
 // API controller for get all parcels -
 const getAllParcel = async (req, res) => {
   try {
-    // const decoded = req.decoded;
+    const decoded = req.decoded;
 
-    // if (decoded.role !== "admin") {
-    //   return res.status(403).send("Forbidden access to get all parcels");
-    // }
+    if (decoded.role !== "admin" && decoded.role !== "rider") {
+      return res.status(403).send("Forbidden access to get all parcels");
+    }
 
     const result = await ParcelService.getAllParcel();
 
