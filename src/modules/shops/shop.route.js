@@ -16,10 +16,10 @@ router.get("/:id", ShopController.getShopById);
 // get shops by email route -
 router.get("/", verifyJWT, ShopController.getShopByEmail);
 
-// update shop info by shopId route -
+// update shop info by _id route -
 router.put("/update-shop/:id", verifyJWT, ShopController.updateShopInfoById);
 
-// delete shop info by shopId route -
+// delete shop info by _id route -
 router.delete("/:id", verifyJWT, ShopController.deleteShopById);
 
 module.exports.ShopRoute = router;

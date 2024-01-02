@@ -36,13 +36,13 @@ const getShopByEmail = async (email) => {
   return result;
 };
 
-// Database Query for update shop info by ID
+// Database Query for update shop info by _id
 const updateShopInfoById = async (id, updatedParcel, option) => {
   const result = await ShopModel.findByIdAndUpdate(id, updatedParcel, option);
   return result;
 };
 
-// Database Query for delete a shop by ID
+// Database Query for delete a shop by _id
 const deleteShopById = async (id) => {
   const result = await ShopModel.findByIdAndDelete(id);
   return result;

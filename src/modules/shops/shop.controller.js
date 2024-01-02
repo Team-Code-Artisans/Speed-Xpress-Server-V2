@@ -83,7 +83,7 @@ const getShopByEmail = async (req, res) => {
   }
 };
 
-// API controller for update Shop info by id
+// API controller for update Shop info by _id
 const updateShopInfoById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -117,13 +117,13 @@ const updateShopInfoById = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({
-      message: "Failed to updating Shop info by ID",
+      message: "Failed to updating Shop info by id",
       error: error.message,
     });
   }
 };
 
-// API controller for delete parcel by ID
+// API controller for delete parcel by _id
 const deleteShopById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -140,7 +140,7 @@ const deleteShopById = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
-      message: "Failed to delete shop by ID",
+      message: "Failed to delete shop by id",
       error: error.message,
     });
   }

@@ -25,7 +25,7 @@ const getInvoicesByEmail = async (email) => {
   return result;
 };
 
-// Database Query for update payment status by ID
+// Database Query for update payment status by _id
 const updatePaymentStatusById = async (id, updatedParcel, option) => {
   const result = await InvoiceModel.findByIdAndUpdate(
     id,
@@ -35,10 +35,17 @@ const updatePaymentStatusById = async (id, updatedParcel, option) => {
   return result;
 };
 
+// Database Query for delete invoice by _id
+const deleteInvoiceById = async (id) => {
+  const result = await InvoiceModel.findByIdAndDelete(id);
+  return result;
+};
+
 module.exports.InvoiceService = {
   createInvoice,
   getAllInvoices,
   getInvoiceById,
   getInvoicesByEmail,
   updatePaymentStatusById,
+  deleteInvoiceById,
 };

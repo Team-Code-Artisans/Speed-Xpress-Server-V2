@@ -13,17 +13,20 @@ router.post("/create-invoice", verifyJWT, InvoiceController.createInvoice);
 // get all invoices for admin account route -
 router.get("/all-invoices", verifyJWT, InvoiceController.getAllInvoices);
 
-// get invoice by Id route -
+// get invoice by invoiceId route -
 router.get("/invoice/:id", verifyJWT, InvoiceController.getInvoiceById);
 
 // get invoices by email route -
 router.get("/invoice", verifyJWT, InvoiceController.getInvoicesByEmail);
 
-// update payment status by ID route -
+// update payment status by _id route -
 router.put(
   "/update-status/:id",
   verifyJWT,
   InvoiceController.updatePaymentStatusById
 );
+
+// delete invoice by _id route -
+router.delete("/:id", verifyJWT, InvoiceController.deleteInvoiceById);
 
 module.exports.InvoiceRoute = router;
