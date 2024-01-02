@@ -13,7 +13,7 @@ router.get("/all-shop", ShopController.getAllShops);
 // get shop info by shopId route -
 router.get("/:id", ShopController.getShopById);
 
-// get shop info by email route -
+// get shops by email route -
 router.get("/", ShopController.getShopByEmail);
 
 // update shop info by shopId route -
