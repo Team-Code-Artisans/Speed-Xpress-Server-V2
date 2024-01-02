@@ -81,9 +81,50 @@ const getShopByEmail = async (req, res) => {
   }
 };
 
+// API controller for update Shop info by id
+const updateShopInfoById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = req.body;
+    // const decoded = req.decoded;
+
+    // if (!decoded.email) {
+    //   return res
+    //     .status(403)
+    //     .send("Forbidden access to update parcel info for the given id");
+    // }
+
+    const option = { new: true };
+    const updatedData = {
+      $set: {
+        name: data.name,
+        email: data.email,
+        number: data.number,
+        address: {
+          ...data.address,
+        },
+      },
+    };
+
+    const result = await ParcelService.updateParcelInfoById(
+      id,
+      updatedData,
+      option
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to updating Shop info by ID",
+      error: error.message,
+    });
+  }
+};
+
 module.exports.ShopController = {
   createShop,
   getAllShops,
   getShopById,
   getShopByEmail,
+  updateShopInfoById,
 };
