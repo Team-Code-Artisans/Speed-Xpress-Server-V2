@@ -13,10 +13,10 @@ router.get("/all-users", verifyJWT, UserController.getAllUsers);
 // get user by email route
 router.get("/", verifyJWT, UserController.getUserByEmail);
 
-// update user by ID route
+// update user by _id route
 router.put("/update-user/:id", verifyJWT, UserController.updateUserInfoById);
 
-// delete user by ID route
+// delete user by _id route
 router.delete("/:id", verifyJWT, UserController.deleteUserById);
 
 module.exports.UserRoute = router;

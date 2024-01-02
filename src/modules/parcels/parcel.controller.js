@@ -42,7 +42,7 @@ const getAllParcel = async (req, res) => {
   }
 };
 
-// API controller for get parcel data by ID
+// API controller for get parcel data by parcelId
 const getParcelByID = async (req, res) => {
   try {
     const parcelId = req.params.id;
@@ -65,7 +65,7 @@ const getParcelByID = async (req, res) => {
   }
 };
 
-// API controller for get parcels by ID
+// API controller for get parcels by email
 const getParcelsByEmail = async (req, res) => {
   try {
     const email = req.query.email;
@@ -95,7 +95,7 @@ const getParcelsByEmail = async (req, res) => {
   }
 };
 
-// API controller for update parcel info by id
+// API controller for update parcel info by _id
 const updateParcelInfoById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -131,7 +131,7 @@ const updateParcelInfoById = async (req, res) => {
   }
 };
 
-// API controller for parcel status update by id
+// API controller for parcel status update by _id
 const updateParcelStatusById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -166,7 +166,7 @@ const updateParcelStatusById = async (req, res) => {
   }
 };
 
-// API controller for delete parcel by ID
+// API controller for delete parcel by _id
 const deleteParcelById = async (req, res) => {
   try {
     const id = req.params.id;

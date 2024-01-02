@@ -23,7 +23,7 @@ const getAllParcel = async () => {
   return result;
 };
 
-// Database Query for get parcel by ID -
+// Database Query for get parcel by parcelId -
 const getParcelById = async (id) => {
   const parcelId = { parcelId: id };
   const result = await ParcelModel.findOne(parcelId);
@@ -37,19 +37,19 @@ const getParcelsByEmail = async (email) => {
   return result;
 };
 
-// Database Query for update parcel info by ID
+// Database Query for update parcel info by _id
 const updateParcelInfoById = async (id, updatedParcel, option) => {
   const result = await ParcelModel.findByIdAndUpdate(id, updatedParcel, option);
   return result;
 };
 
-// Database Query for update parcel status by ID
+// Database Query for update parcel status by _id
 const updateParcelStatusById = async (id, updatedParcel, option) => {
   const result = await ParcelModel.findByIdAndUpdate(id, updatedParcel, option);
   return result;
 };
 
-// Database Query for delete a parcel by ID
+// Database Query for delete a parcel by _id
 const deleteParcelById = async (id) => {
   const result = await ParcelModel.findOneAndDelete(id);
   return result;

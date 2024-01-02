@@ -10,23 +10,23 @@ router.post("/create-parcel", verifyJWT, ParcelController.createParcel);
 // get all parcel route -
 router.get("/all-parcel", verifyJWT, ParcelController.getAllParcel);
 
-// get parcel by id route
+// get parcel by parcelId route
 router.get("/:id", ParcelController.getParcelByID);
 
 // get parcels by email route
 router.get("/", verifyJWT, ParcelController.getParcelsByEmail);
 
-// update parcel info by id route
+// update parcel info by _id route
 router.put("/update/:id", verifyJWT, ParcelController.updateParcelInfoById);
 
-// update parcel status by id route
+// update parcel status by _id route
 router.put(
   "/update-status/:id",
   verifyJWT,
   ParcelController.updateParcelStatusById
 );
 
-// delete parcel by ID route
+// delete parcel by _id route
 router.delete("/:id", verifyJWT, ParcelController.deleteParcelById);
 
 module.exports.ParcelRoute = router;

@@ -25,13 +25,13 @@ const getUserByEmail = async (email) => {
   return result;
 };
 
-// Database Query for user info update by ID
+// Database Query for user info update by _id
 const updateUserInfoById = async (id, updatedData, option) => {
   const result = await UserModel.findByIdAndUpdate(id, updatedData, option);
   return result;
 };
 
-// Database Query for delete a user by ID
+// Database Query for delete a user by _id
 const deleteUserById = async (id) => {
   const result = await UserModel.findByIdAndDelete(id);
   return result;
