@@ -30,9 +30,9 @@ const getShopById = async (id) => {
   return result;
 };
 
-// Database Query for get shop information by email address
+// Database Query for get shops by email
 const getShopByEmail = async (email) => {
-  const result = await ShopModel.find({ email });
+  const result = await ShopModel.find({ merchantEmail: email });
   return result;
 };
 
