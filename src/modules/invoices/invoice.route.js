@@ -19,7 +19,7 @@ router.get("/invoice/:id", verifyJWT, InvoiceController.getInvoiceById);
 // get invoices by email route -
 router.get("/invoice", verifyJWT, InvoiceController.getInvoicesByEmail);
 
-// update payment status by _id route -
+// update payment status by _id in invoice and parcel info route -
 router.put(
   "/update-status/:id",
   verifyJWT,
