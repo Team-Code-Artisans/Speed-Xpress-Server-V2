@@ -1,14 +1,18 @@
 const express = require("express");
-const getJwtToken = require("../utilities/getJwtToken");
+const getJwtToken = require("../utilities/JWT/getJwtToken");
 const { UserRoute } = require("../modules/users/user.route");
 const { ShopRoute } = require("../modules/shops/shop.route");
 const { ParcelRoute } = require("../modules/parcels/parcel.route");
 const { InvoiceRoute } = require("../modules/invoices/invoice.route");
+const sendMail = require("../utilities/sendMailer/sendMail");
 
 const router = express.Router();
 
 // get JWT token
 router.post("/jwt", getJwtToken);
+
+// send mail route
+router.post("/sendMail", sendMail);
 
 // user routes
 router.use("/users", UserRoute);

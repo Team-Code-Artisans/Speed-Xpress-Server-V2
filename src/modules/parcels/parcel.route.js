@@ -1,5 +1,5 @@
 const express = require("express");
-const verifyJWT = require("../../utilities/verifyJWT");
+const verifyJWT = require("../../utilities/JWT/verifyJWT");
 const { ParcelController } = require("./parcel.controller");
 
 const router = express.Router();
