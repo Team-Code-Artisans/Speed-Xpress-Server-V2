@@ -11,7 +11,7 @@ router.post("/", verifyJWT, InvoiceController.createPayment);
 router.post("/create-invoice", verifyJWT, InvoiceController.createInvoice);
 
 // get all invoices for admin account route -
-router.get("/all-invoices", InvoiceController.getAllInvoices);
+router.get("/all-invoices", verifyJWT, InvoiceController.getAllInvoices);
 
 // get invoice by invoiceId route -
 router.get("/invoice/:id", verifyJWT, InvoiceController.getInvoiceById);

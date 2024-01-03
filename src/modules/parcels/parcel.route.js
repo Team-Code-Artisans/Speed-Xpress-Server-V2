@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/create-parcel", verifyJWT, ParcelController.createParcel);
 
 // get all parcel route -
-router.get("/all-parcel", ParcelController.getAllParcel);
+router.get("/all-parcel", verifyJWT, ParcelController.getAllParcel);
 
 // get parcel by parcelId route
 router.get("/:id", ParcelController.getParcelByID);
@@ -29,6 +29,7 @@ router.put(
 // update parcel status by _id route
 router.put(
   "/update-payment-status/:id",
+  verifyJWT,
   ParcelController.updateParcelPaymentStatusById
 );
 

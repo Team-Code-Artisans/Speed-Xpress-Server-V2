@@ -101,11 +101,11 @@ const createInvoice = async (req, res) => {
 // API controller for get all invoices
 const getAllInvoices = async (req, res) => {
   try {
-    // const decoded = req.decoded;
+    const decoded = req.decoded;
 
-    // if (decoded.role !== "admin") {
-    //   return res.status(403).send("Forbidden access to get all invoices");
-    // }
+    if (decoded.role !== "admin") {
+      return res.status(403).send("Forbidden access to get all invoices");
+    }
 
     const result = await InvoiceService.getAllInvoices();
 
