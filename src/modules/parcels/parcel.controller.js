@@ -26,7 +26,6 @@ const createParcel = async (req, res) => {
 const getAllParcel = async (req, res) => {
   try {
     const decoded = req.decoded;
-    console.log("decoded:", decoded);
 
     if (decoded.role !== "admin" && decoded.role !== "rider") {
       return res.status(403).send("Forbidden access to get all parcels");
