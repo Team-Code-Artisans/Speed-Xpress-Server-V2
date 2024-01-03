@@ -1,5 +1,5 @@
 const express = require("express");
-const verifyJWT = require("../../utilities/verifyJWT");
+const verifyJWT = require("../../utilities/JWT/verifyJWT");
 const { InvoiceController } = require("./invoice.controller");
 
 const router = express.Router();
