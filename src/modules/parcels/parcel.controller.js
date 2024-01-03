@@ -26,6 +26,7 @@ const createParcel = async (req, res) => {
 const getAllParcel = async (req, res) => {
   try {
     const decoded = req.decoded;
+    console.log("decoded:", decoded);
 
     if (decoded.role !== "admin" && decoded.role !== "rider") {
       return res.status(403).send("Forbidden access to get all parcels");
@@ -171,13 +172,15 @@ const updateParcelPaymentStatusById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    // const decoded = req.decoded;
+    const decoded = req.decoded;
 
-    // if (!decoded.email) {
-    //   return res
-    //     .status(403)
-    //     .send("Forbidden access to update parcel payment status for the given id");
-    // }
+    if (!decoded.email) {
+      return res
+        .status(403)
+        .send(
+          "Forbidden access to update parcel payment status for the given id"
+        );
+    }
 
     const option = { new: true };
     const updatedData = {
