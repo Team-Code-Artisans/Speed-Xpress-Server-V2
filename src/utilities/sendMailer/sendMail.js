@@ -1,52 +1,73 @@
 const createTemplate = require("./templete");
 const createTransporter = require("./transporter");
 
-// const sendMail_ = async (mailInfo) => {
-//   return transporter
-//     .sendMail(mailInfo)
-//     .then(() => res.send("mail has been sent"))
-//     .catch((err) => res.status(500).json({ err }));
-// };
-
 const sendMail = async (req, res) => {
   const data = req.body;
-  const senderEmail = data.senderInfo.email;
-  const name = data.senderInfo.name;
-  const parcelId = data.parcelId;
-  const parcelStatus = data.parcelStatus;
-  const amount = data.paymentInfo.amount;
+  const {
+    parcelId,
+    parcelWeight,
+    parcelQuantity,
+    shippingMethod,
+    parcelStatus,
+    deliveryDateTime,
+    paymentInfo,
+    senderInfo,
+    recipientInfo,
+  } = data;
+  let { name, email, number, address } = recipientInfo;
+  const { amount, method, status } = paymentInfo;
+  const [date, time] = deliveryDateTime.split(", ");
+  name = name
+    .split(/\s+/) // Split by one or more spaces
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   const mailBody = {
     body: {
-      name: name,
-      intro: "Your parcel has been create successfully.",
+      name: senderInfo.name,
+      intro: `Your parcel Has Been ${
+        parcelStatus.charAt(0).toUpperCase() + parcelStatus.slice(1)
+      }.`,
       table: {
         data: [
           {
-            parcelId,
-            parcelStatus,
-            amount,
+            "PARCEL INFO": `ID: <b>${parcelId}</b>`,
+            "RECEIPT INFO": `NAME: <b>${name}</b>`,
           },
+          {
+            "PARCEL INFO": `DATE: <b>${date}</b>`,
+            "RECEIPT INFO": `NUMBER: <b>${number}</b>`,
+          },
+          {
+            "PARCEL INFO": `TIME: <b>${time}</b>`,
+            "RECEIPT INFO": `DISTRICT: <b>${address.district}</b>`,
+          },
+          {
+            "PARCEL INFO": `STATUS: <b>${parcelStatus.toUpperCase()}</b>`,
+            "RECEIPT INFO": `ADDRESS: <b>${address.address}`,
+          },
+          {
+            "PARCEL INFO": `SHIPPING METHOD: <b>${shippingMethod.toUpperCase()}</b>`,
+          },
+          { "PARCEL INFO": `PAYMENT METHOD: <b>${method.toUpperCase()}</b>` },
+          { "PARCEL INFO": `PAYMENT STATUS: <b>${status.toUpperCase()}</b>` },
+          { "PARCEL INFO": `AMOUNT: <b>${amount}</b>` },
         ],
         columns: {
           // Optionally, customize the column widths
           customWidth: {
-            item: "20%",
-            amount: "15%",
+            "PARCEL INFO": "50%",
+            "RECEIPT INFO": "50%",
           },
-          // Optionally, change column text alignment
-          // customAlignment: {
-          //   amount: "right",
-          // },
         },
       },
       action: {
         instructions:
-          "You can check the parcel status of your parcel and more in your dashboard:",
+          "You can check the parcel status of your parcel and more in your dashboard.",
         button: {
-          color: "#3869D4",
-          text: "Go to Dashboard",
-          link: "https://speed-xpress-v2.vercel.app/",
+          color: "#3b82f6",
+          text: "Track Your Parcel",
+          link: `https://speed-xpress-v2.vercel.app/parcles/${parcelId}`,
         },
       },
       outro: "We thank you for your purchase.",
@@ -57,8 +78,11 @@ const sendMail = async (req, res) => {
 
   const mailInfo = {
     from: "teamcodeartisans@gmail.com",
-    to: senderEmail,
-    subject: "Your Parcel Has Submitted.",
+    to: senderInfo.email,
+    cc: email,
+    subject: `Your Parcel Has Been ${
+      parcelStatus.charAt(0).toUpperCase() + parcelStatus.slice(1)
+    }.`,
     html: mail,
   };
 
