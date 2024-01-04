@@ -1,51 +1,43 @@
-const nodemailer = require("nodemailer");
-const Mailgen = require("mailgen");
+const createTemplate = require("./templete");
+const createTransporter = require("./transporter");
+
+// const sendMail_ = async (mailInfo) => {
+//   return transporter
+//     .sendMail(mailInfo)
+//     .then(() => res.send("mail has been sent"))
+//     .catch((err) => res.status(500).json({ err }));
+// };
 
 const sendMail = async (req, res) => {
-  const senderEmail = req.body.email;
-  const name = req.body.name;
+  const data = req.body;
+  const senderEmail = data.senderInfo.email;
+  const name = data.senderInfo.name;
+  const parcelId = data.parcelId;
+  const parcelStatus = data.parcelStatus;
+  const amount = data.paymentInfo.amount;
 
-  const config = {
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_APP,
-      pass: process.env.GMAIL_APP_PASS,
-    },
-  };
-
-  const transporter = await nodemailer.createTransport(config);
-
-  const mailGenerator = new Mailgen({
-    theme: "default",
-    product: {
-      name: "Speed Xpress",
-      link: "https://speed-xpress-v2.vercel.app/",
-    },
-  });
-
-  const email = {
+  const mailBody = {
     body: {
       name: name,
       intro: "Your parcel has been create successfully.",
       table: {
         data: [
           {
-            item: "Node.js",
-            description:
-              "Event-driven I/O server-side JavaScript environment based on V8.",
-            price: "$10.99",
+            parcelId,
+            parcelStatus,
+            amount,
           },
         ],
         columns: {
           // Optionally, customize the column widths
           customWidth: {
             item: "20%",
-            price: "15%",
+            amount: "15%",
           },
           // Optionally, change column text alignment
-          customAlignment: {
-            price: "right",
-          },
+          // customAlignment: {
+          //   amount: "right",
+          // },
         },
       },
       action: {
@@ -61,7 +53,7 @@ const sendMail = async (req, res) => {
     },
   };
 
-  const mail = mailGenerator.generate(email);
+  const mail = createTemplate(mailBody);
 
   const mailInfo = {
     from: "teamcodeartisans@gmail.com",
@@ -69,6 +61,8 @@ const sendMail = async (req, res) => {
     subject: "Your Parcel Has Submitted.",
     html: mail,
   };
+
+  const transporter = await createTransporter();
 
   transporter
     .sendMail(mailInfo)
