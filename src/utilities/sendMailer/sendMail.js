@@ -3,19 +3,17 @@ const createTransporter = require("./transporter");
 
 const sendMail = async (req, res) => {
   const data = req.body;
-  const {
+  let {
     parcelId,
     parcelWeight,
     parcelQuantity,
     shippingMethod,
     parcelStatus,
     deliveryDateTime,
-    paymentInfo,
+    paymentInfo: { amount, method, status },
     senderInfo,
-    recipientInfo,
+    recipientInfo: { name, email, number, address },
   } = data;
-  let { name, email, number, address } = recipientInfo;
-  const { amount, method, status } = paymentInfo;
   const [date, time] = deliveryDateTime.split(", ");
   name = name
     .split(/\s+/) // Split by one or more spaces
