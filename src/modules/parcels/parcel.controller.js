@@ -1,3 +1,4 @@
+const sendMailer = require("../../utilities/sendMailer/sendMailer");
 const { ParcelService } = require("./parcel.service");
 
 // API controller for insert a new parcel -
@@ -11,9 +12,16 @@ const createParcel = async (req, res) => {
         .send("Forbidden access to create parcel for the given email address");
     }
 
-    const result = await ParcelService.createParcel(req.body);
+    const parcel = await ParcelService.createParcel(req.body);
 
-    res.status(200).json(result);
+    if (parcel) {
+      const mailResponse = await sendMailer(parcel);
+      if (mailResponse.success) {
+        res.status(200).json(parcel);
+      } else {
+        res.status(400).send("Failed to send mail to creating parcel");
+      }
+    }
   } catch (error) {
     res.status(500).json({
       message: "Failed to create Parcel",
@@ -194,7 +202,14 @@ const updateParcelPaymentStatusById = async (req, res) => {
       option
     );
 
-    res.status(200).json(result);
+    if (result) {
+      const mailResponse = await sendMailer(result);
+      if (mailResponse.success) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).send("Failed to send mail to updating parcel status");
+      }
+    }
   } catch (error) {
     res.status(400).json({
       message: "Failed to updating parcel payment status by ID",
