@@ -33,7 +33,7 @@ const createInvoice = async (payload) => {
 
 // Database Query for get all invoices
 const getAllInvoices = async () => {
-  const invoices = await InvoiceModel.find();
+  const invoices = await InvoiceModel.find().sort({ _id: -1 });
   return invoices;
 };
 
@@ -46,7 +46,7 @@ const getInvoiceById = async (id) => {
 // Database Query for get invoices by email address
 const getInvoicesByEmail = async (email) => {
   const userEmail = { userEmail: email };
-  const result = await ParcelModel.find(userEmail);
+  const result = await ParcelModel.find(userEmail).sort({ _id: -1 });
   return result;
 };
 

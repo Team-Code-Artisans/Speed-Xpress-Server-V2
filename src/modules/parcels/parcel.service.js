@@ -19,7 +19,7 @@ const createParcel = async (payload) => {
 
 // Database Query for get all parcels -
 const getAllParcel = async () => {
-  const result = await ParcelModel.find();
+  const result = await ParcelModel.find().sort({ _id: -1 });
   return result;
 };
 
@@ -33,7 +33,7 @@ const getParcelById = async (id) => {
 // Database Query for get parcels by email
 const getParcelsByEmail = async (email) => {
   const senderEmail = { "senderInfo.email": email };
-  const result = await ParcelModel.find(senderEmail);
+  const result = await ParcelModel.find(senderEmail).sort({ _id: -1 });
   return result;
 };
 
