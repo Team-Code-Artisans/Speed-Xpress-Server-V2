@@ -19,7 +19,7 @@ const createShop = async (payload) => {
 
 // Database Query for get all shop information for admin users
 const getAllShops = async () => {
-  const result = await ShopModel.find();
+  const result = await ShopModel.find().sort({ _id: -1 });
   return result;
 };
 
@@ -32,7 +32,9 @@ const getShopById = async (id) => {
 
 // Database Query for get shops by email
 const getShopByEmail = async (email) => {
-  const result = await ShopModel.find({ merchantEmail: email });
+  const result = await ShopModel.find({ merchantEmail: email }).sort({
+    _id: -1,
+  });
   return result;
 };
 
