@@ -125,7 +125,7 @@ const getInvoiceById = async (req, res) => {
 
     const result = await InvoiceService.getInvoiceById(id);
 
-    if (result.length === 0) {
+    if (result?.length === 0) {
       res.status(404).json({
         message: "No invoice found for the given invoiceId",
         data: [],
@@ -155,7 +155,7 @@ const getInvoicesByEmail = async (req, res) => {
 
     const result = await InvoiceService.getInvoicesByEmail(email);
 
-    if (result.length === 0) {
+    if (result?.length === 0) {
       res.status(404).json({
         message: "No invoices found for the given email",
         data: [],

@@ -51,6 +51,15 @@ const getShopById = async (req, res) => {
 
     const result = await ShopService.getShopById(shopId);
 
+    if (result?.length === 0) {
+      res.status(404).json({
+        message: "No Shop found for the given shopId",
+        data: [],
+      });
+    } else {
+      res.status(200).json(result);
+    }
+
     res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
@@ -73,6 +82,15 @@ const getShopByEmail = async (req, res) => {
     }
 
     const result = await ShopService.getShopByEmail(email);
+
+    if (result?.length === 0) {
+      res.status(404).json({
+        message: "No Shop found for the given email",
+        data: [],
+      });
+    } else {
+      res.status(200).json(result);
+    }
 
     res.status(200).json(result);
   } catch (error) {

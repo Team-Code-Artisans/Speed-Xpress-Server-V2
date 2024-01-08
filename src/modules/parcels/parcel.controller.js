@@ -57,9 +57,9 @@ const getParcelByID = async (req, res) => {
 
     const result = await ParcelService.getParcelById(parcelId);
 
-    if (result.length === 0) {
+    if (result?.length === 0) {
       res.status(404).json({
-        message: "No parcels found for the given parcelId",
+        message: "No parcel found for the given parcelId",
         data: [],
       });
     } else {
@@ -87,7 +87,7 @@ const getParcelsByEmail = async (req, res) => {
 
     const result = await ParcelService.getParcelsByEmail(email);
 
-    if (result.length === 0) {
+    if (result?.length === 0) {
       res.status(404).json({
         message: "No parcels found for the given email",
         data: [],
