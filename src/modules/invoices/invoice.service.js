@@ -46,7 +46,7 @@ const getInvoiceById = async (id) => {
 // Database Query for get invoices by email address
 const getInvoicesByEmail = async (email) => {
   const userEmail = { userEmail: email };
-  const result = await ParcelModel.find(userEmail).sort({ _id: -1 });
+  const result = await InvoiceModel.find(userEmail).sort({ _id: -1 });
   return result;
 };
 
