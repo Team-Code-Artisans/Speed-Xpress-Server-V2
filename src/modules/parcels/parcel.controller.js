@@ -16,6 +16,7 @@ const createParcel = async (req, res) => {
 
     if (parcel) {
       const mailResponse = await sendMailer(parcel);
+
       if (mailResponse.success) {
         res.status(200).json(parcel);
       } else {
