@@ -14,7 +14,7 @@ router.post("/create-invoice", verifyJWT, InvoiceController.createInvoice);
 router.get("/all-invoices", verifyJWT, InvoiceController.getAllInvoices);
 
 // get invoice by invoiceId route -
-router.get("/invoice/:id", verifyJWT, InvoiceController.getInvoiceById);
+router.get("/invoice/:id", InvoiceController.getInvoiceById);
 
 // get invoices by email route -
 router.get("/invoice", verifyJWT, InvoiceController.getInvoicesByEmail);
