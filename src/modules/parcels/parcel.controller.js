@@ -131,7 +131,14 @@ const updateParcelInfoById = async (req, res) => {
       option
     );
 
-    res.status(200).json(result);
+    if (result) {
+      const mailResponse = await sendMailer(result);
+      if (mailResponse.success) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).send("Failed to send mail to updating parcel info");
+      }
+    }
   } catch (error) {
     res.status(400).json({
       message: "Failed to updating parcel info by ID",
@@ -166,7 +173,14 @@ const updateParcelStatusById = async (req, res) => {
       option
     );
 
-    res.status(200).json(result);
+    if (result) {
+      const mailResponse = await sendMailer(result);
+      if (mailResponse.success) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).send("Failed to send mail to updating parcel status");
+      }
+    }
   } catch (error) {
     res.status(400).json({
       message: "Failed to updating parcel status by ID",
