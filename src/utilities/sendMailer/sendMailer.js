@@ -75,8 +75,8 @@ const sendMailer = async (parcelInfo) => {
 
     const mailInfo = {
       from: "teamcodeartisans@gmail.com",
-      to: senderInfo.email,
-      cc: email,
+      to: [senderInfo.email, email],
+      cc: "teamcodeartisans@gmail.com",
       subject: `Your Parcel Has Been ${
         parcelStatus.charAt(0).toUpperCase() + parcelStatus.slice(1)
       }.`,
