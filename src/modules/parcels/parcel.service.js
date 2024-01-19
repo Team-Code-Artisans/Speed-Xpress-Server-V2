@@ -57,7 +57,7 @@ const updateParcelPaymentStatusById = async (id, updatedParcel, option) => {
 
 // Database Query for delete a parcel by _id
 const deleteParcelById = async (id) => {
-  const result = await ParcelModel.findOneAndDelete(id);
+  const result = await ParcelModel.findByIdAndDelete(id);
   return result;
 };
 
