@@ -224,14 +224,6 @@ const updatePaymentStatusById = async (req, res) => {
 const deleteInvoiceById = async (req, res) => {
   try {
     const id = req.params.id;
-    const decoded = req.decoded;
-
-    if (decoded.role !== "admin") {
-      return res
-        .status(403)
-        .send("Forbidden access to delete invoice for the given id");
-    }
-
     const result = await InvoiceService.deleteInvoiceById(id);
 
     res.status(200).json(result);
