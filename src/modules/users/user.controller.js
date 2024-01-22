@@ -65,6 +65,28 @@ const getUserByEmail = async (req, res) => {
   }
 };
 
+// API controller for get user by id
+const getUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      res.status(404).json({
+        message: "Please Provide a valid user id",
+      });
+    } else {
+      const result = await UserService.getUserById(id);
+
+      res.status(200).json(result);
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "Failed to get user data by id",
+      error: error.message,
+    });
+  }
+};
+
 // API controller for update user info by _id
 const updateUserInfoById = async (req, res) => {
   try {
@@ -130,6 +152,7 @@ module.exports.UserController = {
   createUser,
   getAllUsers,
   getUserByEmail,
+  getUserById,
   updateUserInfoById,
   deleteUserById,
 };
