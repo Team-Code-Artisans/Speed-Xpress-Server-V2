@@ -13,6 +13,9 @@ router.get("/all-users", verifyJWT, UserController.getAllUsers);
 // get user by email route
 router.get("/", verifyJWT, UserController.getUserByEmail);
 
+// get user by id route
+router.get("/:id", UserController.getUserById);
+
 // update user by _id route
 router.put("/update-user/:id", verifyJWT, UserController.updateUserInfoById);
 

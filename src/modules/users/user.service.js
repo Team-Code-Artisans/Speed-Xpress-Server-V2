@@ -25,6 +25,12 @@ const getUserByEmail = async (email) => {
   return result;
 };
 
+// Database Query for get user by id
+const getUserById = async (id) => {
+  const result = await UserModel.findById(id);
+  return result;
+};
+
 // Database Query for user info update by _id
 const updateUserInfoById = async (id, updatedData, option) => {
   const result = await UserModel.findByIdAndUpdate(id, updatedData, option);
@@ -41,6 +47,7 @@ module.exports.UserService = {
   createUser,
   getAllUsers,
   getUserByEmail,
+  getUserById,
   updateUserInfoById,
   deleteUserById,
 };
