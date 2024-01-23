@@ -18,6 +18,9 @@ const createPayment = async (req, res) => {
         .send("Forbidden access to make payment for the given email");
     }
 
+    const success_url = `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`;
+    const cancel_url = `${process.env.CLIENT_URL}/dashboard/${data.userRole}/invoices`;
+
     // Create a payment checkout
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -35,8 +38,8 @@ const createPayment = async (req, res) => {
       customer_email: data.userEmail,
       mode: "payment",
       payment_method_types: ["card"],
-      success_url: `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`,
-      cancel_url: `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`,
+      success_url,
+      cancel_url,
     });
 
     // Create invoice ID
