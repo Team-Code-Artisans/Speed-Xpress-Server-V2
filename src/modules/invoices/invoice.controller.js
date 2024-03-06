@@ -11,13 +11,6 @@ const createPayment = async (req, res) => {
   try {
     const data = req.body;
 
-    const decoded = req.decoded;
-    if (decoded.email !== data.userEmail) {
-      return res
-        .status(403)
-        .send("Forbidden access to make payment for the given email");
-    }
-
     const success_url = `${process.env.CLIENT_URL}/dashboard/${data.userRole}/parcels`;
     const cancel_url = `${process.env.CLIENT_URL}/dashboard/${data.userRole}/invoices`;
 
@@ -82,14 +75,6 @@ const createPayment = async (req, res) => {
 const createInvoice = async (req, res) => {
   try {
     const data = req.body;
-    const decoded = req.decoded;
-
-    if (decoded.email !== data.userEmail) {
-      return res
-        .status(403)
-        .send("Forbidden access to create invoice for the given email");
-    }
-
     const result = await InvoiceService.createInvoice(data);
 
     res.status(200).json(result);
@@ -104,12 +89,6 @@ const createInvoice = async (req, res) => {
 // API controller for get all invoices
 const getAllInvoices = async (req, res) => {
   try {
-    const decoded = req.decoded;
-
-    if (decoded.role !== "admin") {
-      return res.status(403).send("Forbidden access to get all invoices");
-    }
-
     const result = await InvoiceService.getAllInvoices();
 
     res.status(200).json(result);
@@ -148,14 +127,6 @@ const getInvoiceById = async (req, res) => {
 const getInvoicesByEmail = async (req, res) => {
   try {
     const email = req.query.email;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to parcels for the given email");
-    }
-
     const result = await InvoiceService.getInvoicesByEmail(email);
 
     if (result?.length === 0) {

@@ -4,14 +4,6 @@ const { ParcelService } = require("./parcel.service");
 // API controller for insert a new parcel -
 const createParcel = async (req, res) => {
   try {
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to create parcel for the given email address");
-    }
-
     const parcel = await ParcelService.createParcel(req.body);
 
     if (parcel) {
@@ -34,12 +26,6 @@ const createParcel = async (req, res) => {
 // API controller for get all parcels -
 const getAllParcel = async (req, res) => {
   try {
-    const decoded = req.decoded;
-
-    if (decoded.role !== "admin" && decoded.role !== "rider") {
-      return res.status(403).send("Forbidden access to get all parcels");
-    }
-
     const result = await ParcelService.getAllParcel();
 
     res.status(200).json(result);
@@ -78,14 +64,6 @@ const getParcelByID = async (req, res) => {
 const getParcelsByEmail = async (req, res) => {
   try {
     const email = req.query.email;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to parcels for the given email");
-    }
-
     const result = await ParcelService.getParcelsByEmail(email);
 
     if (result?.length === 0) {
@@ -109,13 +87,6 @@ const updateParcelInfoById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to update parcel info for the given id");
-    }
 
     const option = { new: true };
     const updatedData = {
@@ -152,13 +123,6 @@ const updateParcelStatusById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const decoded = req.decoded;
-
-    if (!decoded.role === "admin" || !decoded.role === "rider") {
-      return res
-        .status(403)
-        .send("Forbidden access to update parcel status for the given id");
-    }
 
     const option = { new: true };
     const updatedData = {
@@ -194,15 +158,6 @@ const updateParcelPaymentStatusById = async (req, res) => {
   try {
     const id = req.params.id;
     const data = req.body;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send(
-          "Forbidden access to update parcel payment status for the given id"
-        );
-    }
 
     const option = { new: true };
     const updatedData = {
@@ -237,14 +192,6 @@ const updateParcelPaymentStatusById = async (req, res) => {
 const deleteParcelById = async (req, res) => {
   try {
     const id = req.params.id;
-    const decoded = req.decoded;
-
-    if (!decoded.email) {
-      return res
-        .status(403)
-        .send("Forbidden access to delete parcel for the given id");
-    }
-
     const result = await ParcelService.deleteParcelById(id);
 
     res.status(200).json(result);
