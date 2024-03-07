@@ -43,8 +43,6 @@ const getShopById = async (req, res) => {
     } else {
       res.status(200).json(result);
     }
-
-    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       message: "Failed to get shop information by shopId",
@@ -56,6 +54,7 @@ const getShopById = async (req, res) => {
 // API controller for get shop information by email address
 const getShopByEmail = async (req, res) => {
   try {
+    const email = req.query.email;
     const result = await ShopService.getShopByEmail(email);
 
     if (result?.length === 0) {
@@ -66,8 +65,6 @@ const getShopByEmail = async (req, res) => {
     } else {
       res.status(200).json(result);
     }
-
-    res.status(200).json(result);
   } catch (error) {
     res.status(500).json({
       message: "Failed to get shop information by email address",

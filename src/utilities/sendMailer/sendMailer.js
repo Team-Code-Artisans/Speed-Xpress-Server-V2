@@ -22,7 +22,7 @@ const sendMailer = async (parcelInfo) => {
     const mailBody = {
       body: {
         name: senderInfo.name,
-        intro: `Your parcel Has Been ${
+        intro: `Your Parcel Has Been ${
           parcelStatus.charAt(0).toUpperCase() + parcelStatus.slice(1)
         }.`,
         table: {
@@ -64,7 +64,7 @@ const sendMailer = async (parcelInfo) => {
           button: {
             color: "#3b82f6",
             text: "Track Your Parcel",
-            link: `https://speed-xpress-v2.vercel.app/parcles/${parcelId}`,
+            link: `${process.env.CLIENT_URL}/parcels/${parcelId}`,
           },
         },
         outro: "We thank you for your purchase.",
