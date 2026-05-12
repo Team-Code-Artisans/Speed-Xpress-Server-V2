@@ -1,11 +1,14 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const app = require("./app");
-require("dotenv").config();
 const port = process.env.PORT || 8080;
 
 async function main() {
   try {
-    await mongoose.connect(process.env.DATABASE_URL);
+    await mongoose.connect(process.env.DATABASE_URL, {
+      serverSelectionTimeoutMS: 5000,
+      family: 4
+    });
     console.log(`🛢️ Database connection successfully`);
 
     app.listen(port, () => {

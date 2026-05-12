@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: ["http://localhost:3000", "https://speed-xpress-v2.vercel.app"],
     credentials: true,
-  })
+  }),
 );
 
 app.use(morgan("dev"));
