@@ -3,7 +3,7 @@ const { InvoiceService } = require("./invoice.service");
 const { ParcelService } = require("../parcels/parcel.service");
 const InvoiceModel = require("./invoice.model");
 const stripe = require("stripe")(
-  "sk_test_51OSLT1IXagZEAtaHcFE4XOS2Nrj9jhwM7TqiQxdMgKFt2DUHb0nBZzy8odAQF4phRHWd9zOphuOiJfC4Dh4hyzZT000vqNz2wJ"
+  process.env.STRIPE_SECRET_KEY
 );
 
 // API controller for create payment online -
@@ -19,11 +19,11 @@ const createPayment = async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "usd",
+            currency: "bdt",
             product_data: {
               name: "Parcel",
             },
-            unit_amount: data.amount * 100,
+            unit_amount: Math.round(data.amount * 100),
           },
           quantity: 1,
         },
@@ -44,7 +44,7 @@ const createPayment = async (req, res) => {
       const result = await InvoiceModel.create({
         ...data,
         invoiceId,
-        currency: "usd",
+        currency: "bdt",
         paymentId: session ? session.id : uid(`test_${30}`),
       });
 
@@ -56,7 +56,7 @@ const createPayment = async (req, res) => {
       const result = await InvoiceModel.create({
         ...data,
         invoiceId,
-        currency: "usd",
+        currency: "bdt",
         paymentId: session ? session.id : uid(`test_${30}`),
       });
 

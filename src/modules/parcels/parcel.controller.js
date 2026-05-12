@@ -7,13 +7,11 @@ const createParcel = async (req, res) => {
     const parcel = await ParcelService.createParcel(req.body);
 
     if (parcel) {
-      const mailResponse = await sendMailer(parcel);
+      sendMailer(parcel).catch((err) =>
+        console.error("Email notification failed:", err)
+      );
 
-      if (mailResponse.success) {
-        res.status(200).json(parcel);
-      } else {
-        res.status(400).send("Failed to send mail to creating parcel");
-      }
+      res.status(200).json(parcel);
     }
   } catch (error) {
     res.status(500).json({
@@ -100,12 +98,10 @@ const updateParcelInfoById = async (req, res) => {
     );
 
     if (result) {
-      const mailResponse = await sendMailer(result);
-      if (mailResponse.success) {
-        res.status(200).json(result);
-      } else {
-        res.status(400).send("Failed to send mail to updating parcel info");
-      }
+      sendMailer(result).catch((err) =>
+        console.error("Email notification failed:", err)
+      );
+      res.status(200).json(result);
     }
   } catch (error) {
     res.status(400).json({
@@ -135,12 +131,10 @@ const updateParcelStatusById = async (req, res) => {
     );
 
     if (result) {
-      const mailResponse = await sendMailer(result);
-      if (mailResponse.success) {
-        res.status(200).json(result);
-      } else {
-        res.status(400).send("Failed to send mail to updating parcel status");
-      }
+      sendMailer(result).catch((err) =>
+        console.error("Email notification failed:", err)
+      );
+      res.status(200).json(result);
     }
   } catch (error) {
     res.status(400).json({
@@ -170,12 +164,10 @@ const updateParcelPaymentStatusById = async (req, res) => {
     );
 
     if (result) {
-      const mailResponse = await sendMailer(result);
-      if (mailResponse.success) {
-        res.status(200).json(result);
-      } else {
-        res.status(400).send("Failed to send mail to updating parcel status");
-      }
+      sendMailer(result).catch((err) =>
+        console.error("Email notification failed:", err)
+      );
+      res.status(200).json(result);
     }
   } catch (error) {
     res.status(400).json({

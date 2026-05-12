@@ -12,7 +12,7 @@ const createInvoice = async (payload) => {
     const result = await InvoiceModel.create({
       ...payload,
       invoiceId,
-      currency: "usd",
+      currency: "bdt",
       paymentId: uid(`test_${30}`),
     });
 
@@ -23,7 +23,7 @@ const createInvoice = async (payload) => {
     const result = await InvoiceModel.create({
       ...payload,
       invoiceId,
-      currency: "usd",
+      currency: "bdt",
       paymentId: uid(`test_${30}`),
     });
 
