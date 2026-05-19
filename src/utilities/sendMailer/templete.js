@@ -5,7 +5,7 @@ const createTemplate = (mailBody) => {
     theme: "default",
     product: {
       name: "Speed Xpress",
-      link: "https://speed-xpress-v2.vercel.app/",
+      link: process.env.CLIENT_URL || "http://localhost:3000",
     },
   });
 
