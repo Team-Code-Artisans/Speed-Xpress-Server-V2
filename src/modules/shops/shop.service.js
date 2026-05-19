@@ -3,18 +3,10 @@ const ShopModel = require("./shop.model");
 
 // Database Query for insert a new parcel
 const createShop = async (payload) => {
-  let shopId = `SXSHOP${uid(6)}`;
+  const shopId = `SXSHOP${uid(6)}`;
 
-  const isExist = await ShopModel.findOne({ shopId });
-
-  if (!isExist) {
-    const result = await ShopModel.create({ shopId, ...payload });
-    return result;
-  } else {
-    shopId = `SXSHOP${uid(6)}`;
-    const result = await ShopModel.create({ shopId, ...payload });
-    return result;
-  }
+  const result = await ShopModel.create({ shopId, ...payload });
+  return result;
 };
 
 // Database Query for get all shop information for admin users

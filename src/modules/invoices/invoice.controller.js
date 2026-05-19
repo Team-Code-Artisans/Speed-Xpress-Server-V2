@@ -36,33 +36,18 @@ const createPayment = async (req, res) => {
     });
 
     // Create invoice ID
-    let invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
-    const isExist = await InvoiceModel.findOne({ invoiceId });
+    const invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
 
-    if (!isExist) {
-      // Save invoice
-      const result = await InvoiceModel.create({
-        ...data,
-        invoiceId,
-        currency: "bdt",
-        paymentId: session ? session.id : uid(`test_${30}`),
-      });
+    // Save invoice
+    const result = await InvoiceModel.create({
+      ...data,
+      invoiceId,
+      currency: "bdt",
+      paymentId: session ? session.id : uid(`test_${30}`),
+    });
 
-      // Send the Payment Session url to the client
-      res.status(200).json({ url: session.url, id: result._id });
-    } else {
-      invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
-      // Save invoice
-      const result = await InvoiceModel.create({
-        ...data,
-        invoiceId,
-        currency: "bdt",
-        paymentId: session ? session.id : uid(`test_${30}`),
-      });
-
-      // Send the Payment Session url to the client
-      res.status(200).json({ url: session.url, id: result._id });
-    }
+    // Send the Payment Session url to the client
+    res.status(200).json({ url: session.url, id: result._id });
   } catch (error) {
     res.status(500).json({
       message: "Failed to create Payment intent",

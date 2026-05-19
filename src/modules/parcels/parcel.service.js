@@ -3,18 +3,10 @@ const { uid } = require("uid");
 
 // Database Query for insert a new parcel
 const createParcel = async (payload) => {
-  let parcelId = `SX${uid(6).toUpperCase()}`;
+  const parcelId = `SX${uid(6).toUpperCase()}`;
 
-  const isExist = await ParcelModel.findOne({ parcelId: parcelId });
-
-  if (!isExist) {
-    const result = await ParcelModel.create({ parcelId, ...payload });
-    return result;
-  } else {
-    parcelId = `SX${uid(6).toUpperCase()}`;
-    const result = await ParcelModel.create({ parcelId, ...payload });
-    return result;
-  }
+  const result = await ParcelModel.create({ parcelId, ...payload });
+  return result;
 };
 
 // Database Query for get all parcels -

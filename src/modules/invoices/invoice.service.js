@@ -3,32 +3,16 @@ const { uid } = require("uid");
 
 // Database Query for create invoice offline
 const createInvoice = async (payload) => {
-  // Create invoice ID
-  let invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
-  const isExist = await InvoiceModel.findOne({ invoiceId });
+  const invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
 
-  if (!isExist) {
-    // Save invoice
-    const result = await InvoiceModel.create({
-      ...payload,
-      invoiceId,
-      currency: "bdt",
-      paymentId: uid(`test_${30}`),
-    });
+  const result = await InvoiceModel.create({
+    ...payload,
+    invoiceId,
+    currency: "bdt",
+    paymentId: uid(`test_${30}`),
+  });
 
-    return result;
-  } else {
-    invoiceId = `SXINVOICE${uid(6).toUpperCase()}`;
-    // Save invoice
-    const result = await InvoiceModel.create({
-      ...payload,
-      invoiceId,
-      currency: "bdt",
-      paymentId: uid(`test_${30}`),
-    });
-
-    return result;
-  }
+  return result;
 };
 
 // Database Query for get all invoices

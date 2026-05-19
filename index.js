@@ -15,7 +15,8 @@ async function main() {
       console.log(`server listening on port ${port}`);
     });
   } catch (error) {
-    console.log(`Failed to connect database`, error.message);
+    console.error(`Failed to connect database: ${error.message}`);
+    process.exit(1);
   }
 }
 

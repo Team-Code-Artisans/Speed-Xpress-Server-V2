@@ -5,14 +5,15 @@ const cors = require("cors");
 const app = express();
 
 const router = require("./src/routes");
-const {
-  globalErrorHandler,
-  errorRouter,
-} = require("./src/utilities/globalErrorHandler");
+const { globalErrorHandler } = require("./src/utilities/globalErrorHandler");
+
+const allowedOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((s) => s.trim())
+  : ["http://localhost:3000"];
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://speed-xpress-v2.vercel.app"],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
@@ -29,11 +30,10 @@ app.get("/", (req, res) => {
 });
 
 app.all("*", (req, res) => {
-  res.json("No Route Found!");
+  res.status(404).json({ message: "Route Not Found" });
 });
 
 // use error handler
-app.use(errorRouter);
 app.use(globalErrorHandler);
 
 module.exports = app;

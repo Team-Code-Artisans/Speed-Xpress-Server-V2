@@ -74,9 +74,9 @@ const sendMailer = async (parcelInfo) => {
     const mail = createTemplate(mailBody);
 
     const mailInfo = {
-      from: "teamcodeartisans@gmail.com",
+      from: process.env.GMAIL_APP,
       to: [senderInfo.email, email],
-      cc: "teamcodeartisans@gmail.com",
+      cc: process.env.GMAIL_APP,
       subject: `Your Parcel Has Been ${
         parcelStatus.charAt(0).toUpperCase() + parcelStatus.slice(1)
       }.`,
